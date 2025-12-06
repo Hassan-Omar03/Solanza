@@ -5,7 +5,14 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 
-function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
+/* ---------------------------------- */
+/* Item Group                          */
+/* ---------------------------------- */
+
+function ItemGroup({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       role="list"
@@ -16,10 +23,14 @@ function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
+/* ---------------------------------- */
+/* Separator                           */
+/* ---------------------------------- */
+
 function ItemSeparator({
   className,
   ...props
-}: React.ComponentProps<typeof Separator>) {
+}: React.ComponentPropsWithoutRef<typeof Separator>) {
   return (
     <Separator
       data-slot="item-separator"
@@ -29,6 +40,10 @@ function ItemSeparator({
     />
   )
 }
+
+/* ---------------------------------- */
+/* Item Variants                       */
+/* ---------------------------------- */
 
 const itemVariants = cva(
   'group/item [a&]:hover:bg-accent/50 focus-visible:border-ring focus-visible:ring-ring/50 flex flex-wrap items-center rounded-md border border-transparent text-sm outline-none transition-colors duration-100 focus-visible:ring-[3px] [a&]:transition-colors',
@@ -51,25 +66,39 @@ const itemVariants = cva(
   },
 )
 
+/* ---------------------------------- */
+/* ✅ FIXED Item (Slot-safe)           */
+/* ---------------------------------- */
+
+interface ItemProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof itemVariants> {
+  asChild?: boolean
+}
+
 function Item({
   className,
   variant = 'default',
   size = 'default',
   asChild = false,
   ...props
-}: React.ComponentProps<'div'> &
-  VariantProps<typeof itemVariants> & { asChild?: boolean }) {
+}: ItemProps) {
   const Comp = asChild ? Slot : 'div'
+
   return (
     <Comp
       data-slot="item"
       data-variant={variant}
       data-size={size}
-      className={cn(itemVariants({ variant, size, className }))}
+      className={cn(itemVariants({ variant, size }), className)}
       {...props}
     />
   )
 }
+
+/* ---------------------------------- */
+/* Media Variants                      */
+/* ---------------------------------- */
 
 const itemMediaVariants = cva(
   'flex shrink-0 items-center justify-center gap-2 group-has-[[data-slot=item-description]]/item:translate-y-0.5 group-has-[[data-slot=item-description]]/item:self-start [&_svg]:pointer-events-none',
@@ -92,18 +121,26 @@ function ItemMedia({
   className,
   variant = 'default',
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>) {
+}: React.HTMLAttributes<HTMLDivElement> &
+  VariantProps<typeof itemMediaVariants>) {
   return (
     <div
       data-slot="item-media"
       data-variant={variant}
-      className={cn(itemMediaVariants({ variant, className }))}
+      className={cn(itemMediaVariants({ variant }), className)}
       {...props}
     />
   )
 }
 
-function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
+/* ---------------------------------- */
+/* Sub Components                      */
+/* ---------------------------------- */
+
+function ItemContent({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       data-slot="item-content"
@@ -116,7 +153,10 @@ function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
+function ItemTitle({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       data-slot="item-title"
@@ -129,7 +169,10 @@ function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
+function ItemDescription({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLParagraphElement>) {
   return (
     <p
       data-slot="item-description"
@@ -143,7 +186,10 @@ function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
   )
 }
 
-function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
+function ItemActions({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       data-slot="item-actions"
@@ -153,7 +199,10 @@ function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
+function ItemHeader({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       data-slot="item-header"
@@ -166,7 +215,10 @@ function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
   )
 }
 
-function ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {
+function ItemFooter({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       data-slot="item-footer"
@@ -178,6 +230,8 @@ function ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {
     />
   )
 }
+
+/* ---------------------------------- */
 
 export {
   Item,
