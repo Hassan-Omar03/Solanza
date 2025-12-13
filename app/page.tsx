@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
+import Image from "next/image"
+import Link from "next/link"
 import {
   ArrowRight,
   Sparkles,
@@ -24,6 +26,7 @@ import {
   MessageCircle,
   Rocket,
 } from "lucide-react"
+
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import { Button } from "@/components/ui/button"
@@ -32,6 +35,7 @@ import { Card, CardContent } from "@/components/ui/card"
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [contentLoaded, setContentLoaded] = useState(false)
+  const [expandedProject, setExpandedProject] = useState<string | null>(null)
 
   useEffect(() => {
     setIsLoaded(true)
@@ -153,34 +157,67 @@ export default function Home() {
 
   const portfolio = [
     {
-      title: "E-commerce Transformation",
-      category: "E-commerce",
-      description: "Shopify store with full integration and SEO optimization",
+      title: "ABSMD – Business & Medical Services",
+      category: "Corporate Website",
+      shortDesc: "Professional corporate website for medical & business services.",
+      fullDesc:
+        "ABSMD is a US-based corporate website designed for medical and business services. The project focuses on trust-building UI, clear service presentation, SEO optimization, and responsive performance. The layout is structured to convert visitors into leads while maintaining a clean, healthcare-grade professional appearance. Key features include: clear service pages, contact form with lead capture, performance optimization, and mobile-first UX.",
+      image: "absmd.png",
+      url: "https://absmd.us",
     },
     {
-      title: "Brand Identity System",
-      category: "Branding",
-      description: "Complete logo, branding kit, and marketing assets",
+      title: "Asrar Salon",
+      category: "Salon & Beauty",
+      shortDesc: "Luxury beauty salon website with premium branding.",
+      fullDesc:
+        "Asrar Salon is a high-end beauty and grooming website crafted with a luxury-first design approach. The website highlights salon services, brand identity, and customer experience with smooth animations, mobile optimization, and local SEO to attract premium clients. Features include service pages, booking CTA, gallery, and locally-optimized content.",
+      image: "salon.png",
+      url: "https://asrarsalon.com",
     },
     {
-      title: "Social Media Growth",
-      category: "Growth Marketing",
-      description: "10K followers to 100K in 3 months",
+      title: "Hoda Shine Services",
+      category: "Cleaning Services",
+      shortDesc: "Service-based website focused on lead generation.",
+      fullDesc:
+        "Hoda Shine Services is a professional cleaning services website designed to convert visitors into customers. The site showcases offered services, pricing outline, and an easy contact flow, as well as local SEO focus to capture nearby leads. Built for speed and clear conversion funnels.",
+      image: "cleaning.png",
+      url: "https://hodashineservices.com",
     },
     {
-      title: "Lead Generation Campaign",
-      category: "Digital Marketing",
-      description: "Google Ads & Facebook campaign management",
+      title: "Quotation Management System",
+      category: "Web Application",
+      shortDesc: "Dynamic system for generating business quotations.",
+      fullDesc:
+        "A custom-built quotation management web application that allows businesses to create, manage, and export professional quotations digitally. The system improves accuracy, speeds up proposal generation, supports PDF exports, and provides a user-friendly dashboard for tracking quotes and client communication.",
+      image: "quotation.png",
+      url: "https://quotation.bim.africa",
     },
     {
-      title: "Video Marketing Suite",
-      category: "Content Creation",
-      description: "Professional reels, shorts, and promotional videos",
+      title: "BIM Africa",
+      category: "Corporate Platform",
+      shortDesc: "Large-scale digital services platform.",
+      fullDesc:
+        "BIM Africa is a content-driven corporate platform offering web services, SEO-focused articles, and business solutions across markets. The site emphasizes content discoverability, optimized article structure, and performance for long-form content and service pages. Built to support growth and regional SEO.",
+      image: "bim.png",
+      url: "https://bim.africa",
     },
     {
-      title: "SEO Success Story",
-      category: "SEO",
-      description: "Local business ranking #1 on Google Maps",
+      title: "Construction Management App",
+      category: "Web Application",
+      shortDesc: "Modern construction-focused web application.",
+      fullDesc:
+        "This construction web application (Next.js) highlights services, projects, and workflows for construction businesses. Emphasis is on responsiveness, performance, and clear presentation of services and case studies. Includes service pages, contact forms, and intuitive navigation for client audiences.",
+      image: "construction.png",
+      url: "https://construction-mu-sandy.vercel.app",
+    },
+    {
+      title: "Mauritius Travel & Tours",
+      category: "Travel Website",
+      shortDesc: "Tourism website promoting travel packages.",
+      fullDesc:
+        "Mauritius Travel & Tours is a tourism-focused website designed to promote destinations, travel packages, and booking inquiries. It uses immersive visuals, clear package breakdowns, and SEO-optimized copy to attract international visitors. Features include package galleries, enquiry forms, and performance-optimized imagery.",
+      image: "/travel.png",
+      url: "https://mauritiustraveltour.com",
     },
   ]
 
@@ -238,12 +275,12 @@ export default function Home() {
       >
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 sm:w-96 sm:h-96 bg-yellow-600 rounded-full mix-blend-screen filter blur-3xl opacity-10"
+            className="absolute -top-40 -right-40 w-80 h-80 sm:w-96 sm:h-96  rounded-full mix-blend-screen filter blur-3xl opacity-10"
             animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
           />
           <motion.div
-            className="absolute -bottom-40 -left-40 w-80 h-80 sm:w-96 sm:h-96 bg-yellow-700 rounded-full mix-blend-screen filter blur-3xl opacity-5"
+            className="absolute -bottom-40 -left-40 w-80 h-80 sm:w-96 sm:h-96 rounded-full mix-blend-screen filter blur-3xl opacity-5"
             animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
             transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, delay: 2 }}
           />
@@ -298,7 +335,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6 border-2 border-yellow-500/50 text-yellow-400 hover:bg-yellow-500/10 bg-black backdrop-blur-sm hover:border-yellow-400 w-full sm:w-auto"
+                  className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6 border-2 border-yellow-500/50 text-yellow-400  w-full sm:w-auto"
                 >
                   Get Started Now
                 </Button>
@@ -428,7 +465,7 @@ export default function Home() {
               transition={{ delay: 0.6 }}
               className="mt-10 sm:mt-16 pt-6 sm:pt-10 border-t border-yellow-500/20"
             >
-              <p className="text-yellow-400 font-semibold text-xs sm:text-sm mb-6">Our Core Values</p>
+              <p className="text-yellow-400 font-semibold text-xs sm:text-3xl mb-6">Our Core Values</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 {[
                   { title: "Excellence", desc: "Delivering premium quality in everything we do" },
@@ -460,7 +497,7 @@ export default function Home() {
           >
             {features.map((feature, idx) => (
               <motion.div key={feature.title} variants={itemVariants} transition={{ delay: idx * 0.1 }}>
-                <Card className="h-full border border-yellow-500/30 bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 backdrop-blur hover:border-yellow-500/60 hover:bg-yellow-500/15 transition-all group animate-glow-pulse">
+                <Card className="h-full ">
                   <CardContent className="p-3 sm:p-4 md:p-6">
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 10 }}
@@ -504,7 +541,7 @@ export default function Home() {
           >
             {topServices.map((service, index) => (
               <motion.div key={service.name} variants={itemVariants}>
-                <Card className="border border-yellow-500/20 bg-gradient-to-br from-yellow-500/10 to-yellow-600/5 hover:border-yellow-500/40 transition-all group overflow-hidden h-full">
+                <Card className="border border-yellow-500 h-full">
                   <motion.div
                     className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/50 to-yellow-400/0"
                     animate={{ x: ["-100%", "100%"] }}
@@ -576,7 +613,7 @@ export default function Home() {
               >
                 {category.services.map((service) => (
                   <motion.div key={service.name} variants={itemVariants}>
-                    <Card className="h-full border border-yellow-500/20 bg-yellow-500/5 backdrop-blur hover:border-yellow-500/40 hover:bg-yellow-500/10 transition-all group cursor-pointer overflow-hidden">
+                    <Card className="h-full ">
                       <motion.div
                         className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
                         whileHover={{ opacity: 0.1 }}
@@ -603,7 +640,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10">
+      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28 bg-black border-t ">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -628,20 +665,20 @@ export default function Home() {
           >
             {portfolio.map((project) => (
               <motion.div key={project.title} variants={itemVariants} whileHover={{ y: -8 }} className="group">
-                <Card className="h-full border-yellow-500/20 bg-yellow-500/5 hover:border-yellow-500/40 hover:bg-yellow-500/10 transition-all overflow-hidden">
+                <Card className="h-full overflow-hidden">
                   <motion.div
-                    className="h-32 sm:h-40 md:h-48 bg-gradient-to-br from-yellow-900/20 to-yellow-800/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative border-b border-yellow-500/20"
+                    className="relative h-32 sm:h-40 md:h-48 overflow-hidden rounded-t-xl"
                     whileHover={{ scale: 1.05 }}
                   >
-                    <div className="text-center relative z-10">
-                      <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Number.POSITIVE_INFINITY }}
-                        className="inline-block"
-                      >
-                        <Sparkles className="h-8 w-8 sm:h-10 sm:w-10 md:h-12 md:w-12 text-yellow-500 mx-auto mb-2 opacity-70 group-hover:opacity-100" />
-                      </motion.div>
-                      <p className="text-gray-300 opacity-70 font-medium text-xs sm:text-sm md:text-base">
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+
+                    <div className="absolute inset-0 bg-black/60 flex items-end p-3">
+                      <p className="text-gray-200 opacity-90 font-medium text-xs sm:text-sm md:text-base">
                         {project.category}
                       </p>
                     </div>
@@ -650,7 +687,30 @@ export default function Home() {
                     <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-white group-hover:text-yellow-300 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">{project.description}</p>
+
+                    <motion.p layout className="text-gray-400 text-xs sm:text-sm">
+                      {expandedProject === project.title ? project.fullDesc : project.shortDesc}
+                    </motion.p>
+
+                    <div className="mt-3 flex items-center gap-3">
+                      <button
+                        onClick={() =>
+                          setExpandedProject(expandedProject === project.title ? null : project.title)
+                        }
+                        className="text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors"
+                      >
+                        {expandedProject === project.title ? "Read Less" : "Read More"}
+                      </button>
+
+                      <Link
+                        href={project.url}
+                        target="_blank"
+                        className="inline-flex items-center text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors"
+                      >
+                        View Live Project
+                        <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                      </Link>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
@@ -685,7 +745,7 @@ export default function Home() {
           >
             {testimonials.map((testimonial, index) => (
               <motion.div key={testimonial.name} variants={itemVariants}>
-                <Card className="h-full border-yellow-500/20 bg-yellow-500/5 hover:border-yellow-500/40 hover:bg-yellow-500/10 transition-all group">
+                <Card className="h-full ">
                   <CardContent className="p-3 sm:p-4 md:p-6">
                     <motion.div
                       initial={{ opacity: 0, scale: 0 }}
@@ -761,7 +821,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Footer />
+    
     </div>
   )
 }
