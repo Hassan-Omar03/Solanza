@@ -464,7 +464,7 @@ export default function Home() {
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
 
-                    <div className="absolute inset-0 bg-black/60 flex items-end p-3">
+                    <div className="absolute inset-0 bg-black flex items-end p-3">
                       <p className="text-gray-200 opacity-90 font-medium text-xs sm:text-sm md:text-base">
                         {project.category}
                       </p>

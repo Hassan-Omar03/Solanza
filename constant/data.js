@@ -1,3 +1,23 @@
+import {
+  Code,
+  Palette,
+  TrendingUp,
+  Shield,
+  Globe,
+  Share2,
+  MessageCircle,
+  ShoppingCart,
+  Smartphone,
+  Zap,
+  PenTool,
+  Video,
+  Megaphone,
+  Search,
+  Star,
+  Rocket,
+  Mail,
+} from "lucide-react"
+
 export const stats = [
     { value: "500+", label: "Projects Delivered" },
     { value: "98%", label: "Client Satisfaction" },
