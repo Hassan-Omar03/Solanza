@@ -265,17 +265,18 @@ export default function Home() {
   }
 
   return (
-    <div className="w-full bg-black">
+    // Top-left -> bottom-right gradient that remains constant while scrolling
+    <div className="w-full bg-gradient-to-br from-black via-[#0b1c3d] to-[#1e3a8a] text-white min-h-screen">
       <Navigation />
 
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-black"
+        className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-transparent"
       >
         <div className="absolute inset-0 overflow-hidden">
           <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 sm:w-96 sm:h-96  rounded-full mix-blend-screen filter blur-3xl opacity-10"
+            className="absolute -top-40 -right-40 w-80 h-80 sm:w-96 sm:h-96 rounded-full mix-blend-screen filter blur-3xl opacity-10"
             animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
             transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
           />
@@ -380,7 +381,7 @@ export default function Home() {
       {/* About Section */}
       <section
         id="about"
-        className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10 relative overflow-hidden"
+        className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10 relative overflow-hidden"
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
@@ -516,7 +517,7 @@ export default function Home() {
       </section>
 
       {/* Top Services Section */}
-      <section className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10">
+      <section className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -569,7 +570,7 @@ export default function Home() {
       </section>
 
       {/* Services Section - All Categories */}
-      <section id="services" className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10">
+      <section id="services" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -640,7 +641,7 @@ export default function Home() {
       </section>
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28 bg-black border-t ">
+      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t ">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -720,7 +721,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10 relative overflow-hidden">
+      <section className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10 relative overflow-hidden">
         <div className="relative w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -787,7 +788,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="w-full py-12 sm:py-20 md:py-28 bg-black border-t border-yellow-500/10">
+      <section id="contact" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
         <div className="w-full max-w-4xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <motion.div
@@ -820,8 +821,6 @@ export default function Home() {
           </motion.div>
         </div>
       </section>
-
-    
     </div>
   )
 }
