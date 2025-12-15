@@ -83,15 +83,16 @@ export default function Home() {
               initial={{ scale: 0 }}
               animate={isLoaded ? { scale: 1 } : {}}
               transition={{ delay: 0.2, type: "spring" }}
-              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-yellow-500/40 bg-yellow-500/10 backdrop-blur-sm"
+              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm"
             >
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-xs sm:text-sm font-medium text-yellow-300">Digital Services Excellence</span>
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
+              <span className="text-xs sm:text-sm font-medium text-gray-300">Digital Services Excellence</span>
             </motion.div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 text-gradient leading-tight text-balance">
-              Transform Your Business Digitally
-            </h1>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-balance bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent">
+  Transform Your Business Digitally
+</h1>
+
 
             <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
               Comprehensive digital solutions from web development to social media growth. Serving UAE, Bangladesh, and
@@ -107,7 +108,7 @@ export default function Home() {
               >
                 <Button
                   size="lg"
-                  className="gradient-gold text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6 hover:shadow-2xl hover:shadow-yellow-500/50 transition-all font-semibold w-full sm:w-auto"
+                  className=" text-gray-300 text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6  transition-all font-semibold w-full sm:w-auto"
                 >
                   Explore Services
                   <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
@@ -122,7 +123,7 @@ export default function Home() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6 border-2 border-yellow-500/50 text-yellow-400  w-full sm:w-auto"
+                  className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6  text-gray-300  w-full sm:w-auto"
                 >
                   Get Started Now
                 </Button>
@@ -198,10 +199,10 @@ export default function Home() {
               className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-yellow-500/40 bg-yellow-500/10 backdrop-blur-sm"
             >
               <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 flex-shrink-0" />
-              <span className="text-xs sm:text-sm font-medium text-yellow-300">About Our Company</span>
+              <span className="text-xs sm:text-sm font-medium text-gray-300">About Our Company</span>
             </motion.div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gradient-enhanced leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-300 leading-tight">
               Welcome to Nuvera Digital Solutions
             </h2>
 
@@ -252,7 +253,7 @@ export default function Home() {
               transition={{ delay: 0.6 }}
               className="mt-10 sm:mt-16 pt-6 sm:pt-10 border-t border-yellow-500/20"
             >
-              <p className="text-yellow-400 font-semibold text-xs sm:text-3xl mb-6">Our Core Values</p>
+              <p className="text-gray-300 font-semibold text-xs sm:text-3xl mb-6">Our Core Values</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
                 {[
                   { title: "Excellence", desc: "Delivering premium quality in everything we do" },
@@ -267,7 +268,7 @@ export default function Home() {
                     transition={{ delay: 0.7 + idx * 0.1 }}
                     className="p-3 sm:p-4"
                   >
-                    <h4 className="text-yellow-300 font-bold text-base sm:text-lg mb-2">{value.title}</h4>
+                    <h4 className="text-gray-300 font-bold text-base sm:text-lg mb-2">{value.title}</h4>
                     <p className="text-gray-400 text-xs sm:text-sm">{value.desc}</p>
                   </motion.div>
                 ))}
@@ -292,7 +293,7 @@ export default function Home() {
                     >
                       <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-black font-bold" />
                     </motion.div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-2 text-yellow-100">{feature.title}</h3>
+                    <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-300">{feature.title}</h3>
                     <p className="text-gray-400 text-xs sm:text-sm">{feature.description}</p>
                   </CardContent>
                 </Card>
@@ -311,7 +312,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
               Most-Selling Services
             </h2>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
@@ -328,23 +329,23 @@ export default function Home() {
           >
             {topServices.map((service, index) => (
               <motion.div key={service.name} variants={itemVariants}>
-                <Card className="border border-yellow-500 h-full">
+                <Card className="border border-gray-300 h-full">
                   <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-yellow-400/0 via-yellow-400/50 to-yellow-400/0"
+                    className="absolute inset-0"
                     animate={{ x: ["-100%", "100%"] }}
                     transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, delay: index * 0.1 }}
                     style={{ opacity: 0.1 }}
                   />
                   <CardContent className="p-3 sm:p-4 md:p-6 relative">
                     <div className="flex items-start justify-between mb-2 sm:mb-3">
-                      <h3 className="text-xs sm:text-sm md:text-base font-bold text-white group-hover:text-yellow-300 transition-colors">
+                      <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-300 group-hover:text-yellow-300 transition-colors">
                         {service.name}
                       </h3>
                       <motion.div whileHover={{ scale: 1.2, rotate: 10 }}>
-                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 fill-yellow-400 flex-shrink-0" />
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 fill-yellow-400 flex-shrink-0" />
                       </motion.div>
                     </div>
-                    <div className="inline-block px-2 py-1 rounded-full bg-yellow-500/20 text-yellow-300 text-xs font-semibold">
+                    <div className="inline-block px-2 py-1 rounded-full bg-yellow-500/20 text-gray-300 text-xs font-semibold">
                       {service.demand}
                     </div>
                   </CardContent>
@@ -364,7 +365,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
               Our Complete Services
             </h2>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
@@ -484,7 +485,7 @@ export default function Home() {
                         onClick={() =>
                           setExpandedProject(expandedProject === project.title ? null : project.title)
                         }
-                        className="text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors"
+                        className="text-xs sm:text-sm font-semibold text-gray-300 hover:text-yellow-300 transition-colors"
                       >
                         {expandedProject === project.title ? "Read Less" : "Read More"}
                       </button>
@@ -584,7 +585,7 @@ export default function Home() {
             >
               <Award className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-gradient" />
             </motion.div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-gradient">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-gray-300">
               Ready to Transform Your Business?
             </h2>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
