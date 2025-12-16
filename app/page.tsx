@@ -212,7 +212,8 @@ export default function Home() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 0.3 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed accent-gold-premium"
+                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed accent-black-premium
+"
               >
                 At Nuvera, we believe that digital transformation is not just about technology—it's about creating
                 meaningful connections between businesses and their audiences. With over a decade of collective
