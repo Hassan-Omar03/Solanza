@@ -289,7 +289,7 @@ export default function Home() {
                   <CardContent className="p-3 sm:p-4 md:p-6">
                     <motion.div
                       whileHover={{ scale: 1.15, rotate: 10 }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg gradient-gold flex items-center justify-center mb-3 sm:mb-4 group-hover:animate-soft-pulse flex-shrink-0"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 flex items-center justify-center mb-3 sm:mb-4 group-hover:animate-soft-pulse flex-shrink-0"
                     >
                       <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-black font-bold" />
                     </motion.div>
@@ -303,132 +303,334 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Top Services Section */}
-      <section className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
-              Most-Selling Services
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
-              Our highest-demand services trusted by businesses worldwide
-            </p>
-          </motion.div>
+     {/* ================= TOP SERVICES — ADVANCED ================= */}
+{/* ================= TOP SERVICES — MORE ADVANCED MOTION (NO COLOR CHANGE) ================= */}
+<section className="w-full py-12 sm:py-20 md:py-28 relative overflow-hidden">
+  {/* floating parallax blobs (transparent only) */}
+  <motion.div
+    className="absolute -top-32 -right-32 w-80 h-80 rounded-full "
+    animate={{ y: [-30, 30, -30], x: [0, 20, 0] }}
+    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+  />
+  <motion.div
+    className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full "
+    animate={{ y: [30, -30, 30], x: [0, -20, 0] }}
+    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+  />
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4"
-          >
-            {topServices.map((service, index) => (
-              <motion.div key={service.name} variants={itemVariants}>
-                <Card className="border border-gray-300 h-full">
-                  <motion.div
-                    className="absolute inset-0"
-                    animate={{ x: ["-100%", "100%"] }}
-                    transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY, delay: index * 0.1 }}
-                    style={{ opacity: 0.1 }}
-                  />
-                  <CardContent className="p-3 sm:p-4 md:p-6 relative">
-                    <div className="flex items-start justify-between mb-2 sm:mb-3">
-                      <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-300 group-hover:text-yellow-300 transition-colors">
-                        {service.name}
-                      </h3>
-                      <motion.div whileHover={{ scale: 1.2, rotate: 10 }}>
-                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300  flex-shrink-0" />
-                      </motion.div>
-                    </div>
-                    <div className="inline-block px-2 py-1 rounded-full bg-black text-gray-300 text-xs font-semibold">
-                      {service.demand}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
+  <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
+    {/* heading with micro text reveal */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6 }}
+      className="text-center mb-10 sm:mb-16"
+    >
+      <motion.h2
+        initial={{ y: 40, letterSpacing: "0.2em" }}
+        whileInView={{ y: 0, letterSpacing: "0em" }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300"
+      >
+        Most-Selling Services
+      </motion.h2>
 
-      {/* Services Section - All Categories */}
-      <section id="services" className="w-full">
-        <div className="w-full max-w-7xl mx-auto px-4">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-10 sm:mb-16"
-          >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
-              Our Complete Services
-            </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
-              Comprehensive digital solutions across all major categories
-            </p>
-          </motion.div>
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto"
+      >
+        Our highest-demand services trusted by businesses worldwide
+      </motion.p>
+    </motion.div>
 
-          {serviceCategories.map((category, categoryIndex) => (
+    {/* cards grid with deep stagger */}
+    <motion.div
+      variants={{
+        hidden: {},
+        visible: {
+          transition: {
+            staggerChildren: 0.15,
+            delayChildren: 0.2,
+          },
+        },
+      }}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4"
+    >
+      {topServices.map((service, index) => (
+        <motion.div
+          key={service.name}
+          variants={{
+            hidden: {
+              opacity: 0,
+              y: 60,
+              scale: 0.95,
+            },
+            visible: {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              transition: {
+                duration: 0.8,
+                ease: "easeOut",
+              },
+            },
+          }}
+          whileHover={{
+            y: -14,
+            scale: 1.05,
+            transition: {
+              type: "spring",
+              stiffness: 300,
+              damping: 18,
+            },
+          }}
+          className="group"
+        >
+          <Card className="relative border border-gray-300 h-full overflow-hidden">
+            {/* premium light sweep */}
             <motion.div
-              key={category.category}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: categoryIndex * 0.1 }}
-              className="mb-10 sm:mb-16"
-            >
-              <motion.h3
-                initial={{ x: -20, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                viewport={{ once: true }}
-                className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gradient flex items-center space-x-2 sm:space-x-3"
-              >
-                <div className="h-1 w-4 sm:w-6 md:w-8  rounded-full flex-shrink-0" />
-                <span>{category.category}</span>
-              </motion.h3>
+              className="absolute inset-0 bg-white/5"
+              initial={{ x: "-120%" }}
+              animate={{ x: "120%" }}
+              transition={{
+                duration: 3.2,
+                repeat: Infinity,
+                delay: index * 0.18,
+                ease: "linear",
+              }}
+            />
 
+            {/* depth shadow on hover */}
+            <motion.div
+              className="absolute inset-0"
+              whileHover={{ boxShadow: "0 25px 60px rgba(0,0,0,0.45)" }}
+            />
+
+            <CardContent className="p-3 sm:p-4 md:p-6 relative">
+              <div className="flex items-start justify-between mb-2 sm:mb-3">
+                <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-300">
+                  {service.name}
+                </h3>
+
+                {/* star micro-interaction */}
+                <motion.div
+                  whileHover={{
+                    rotate: 18,
+                    scale: 1.35,
+                  }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 16,
+                  }}
+                >
+                  <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
+                </motion.div>
+              </div>
+
+              {/* demand pill pop */}
               <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                whileInView="visible"
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-6"
+                transition={{ delay: 0.25 }}
+                className="inline-block px-2 py-1 rounded-full bg-black text-gray-300 text-xs font-semibold"
               >
-                {category.services.map((service) => (
-                  <motion.div key={service.name} variants={itemVariants}>
-                    <Card className="h-full ">
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
-                        whileHover={{ opacity: 0.1 }}
-                      />
-                      <CardContent className="p-3 sm:p-4 md:p-6 relative">
-                        <motion.div
-                          whileHover={{ scale: 1.15, rotate: 10 }}
-                          className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg gradient-gold flex items-center justify-center mb-3 sm:mb-4 group-hover:animate-soft-pulse flex-shrink-0"
-                        >
-                          <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-black" />
-                        </motion.div>
-                        <h4 className="text-xs sm:text-sm md:text-base font-bold mb-1 sm:mb-2 text-white group-hover:text-yellow-300 transition-colors">
-                          {service.name}
-                        </h4>
-                        <p className="text-gray-400 text-xs">{service.description}</p>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                ))}
+                {service.demand}
               </motion.div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      ))}
+    </motion.div>
+  </div>
+</section>
+
+
+
+    {/* ================= SERVICES — ALL CATEGORIES (ADVANCED, SAME COLORS ONLY) ================= */}
+{/* ================= SERVICES — ADVANCED MOTION (SAME COLORS, NO NEW SHADES) ================= */}
+<section id="services" className="w-full relative overflow-hidden">
+  {/* soft floating depth (transparent only) */}
+  <motion.div
+    className="absolute -top-40 -right-40 w-96 h-96 rounded-full "
+    animate={{ y: [-30, 30, -30], x: [0, 25, 0] }}
+    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
+  />
+  <motion.div
+    className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full "
+    animate={{ y: [30, -30, 30], x: [0, -25, 0] }}
+    transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
+  />
+
+  <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
+    {/* section heading */}
+    <motion.div
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7 }}
+      className="text-center mb-10 sm:mb-16"
+    >
+      <motion.h2
+        initial={{ y: 40, letterSpacing: "0.15em" }}
+        whileInView={{ y: 0, letterSpacing: "0em" }}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300"
+      >
+        Our Complete Services
+      </motion.h2>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2 }}
+        className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto"
+      >
+        Comprehensive digital solutions across all major categories
+      </motion.p>
+    </motion.div>
+
+    {serviceCategories.map((category, categoryIndex) => (
+      <motion.div
+        key={category.category}
+        initial={{ opacity: 0, y: 60 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{
+          duration: 0.9,
+          delay: categoryIndex * 0.15,
+          ease: "easeOut",
+        }}
+        className="mb-10 sm:mb-16"
+      >
+        {/* category title */}
+        <motion.h3
+          initial={{ x: -40, opacity: 0 }}
+          whileInView={{ x: 0, opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gray-300 flex items-center space-x-3"
+        >
+          <motion.div
+            initial={{ width: 0 }}
+            whileInView={{ width: "2.5rem" }}
+            transition={{ duration: 0.7 }}
+            className="h-1 bg-gray-300 rounded-full flex-shrink-0"
+          />
+          <span>{category.category}</span>
+        </motion.h3>
+
+        {/* services grid */}
+        <motion.div
+          variants={{
+            hidden: {},
+            visible: {
+              transition: {
+                staggerChildren: 0.14,
+                delayChildren: 0.15,
+              },
+            },
+          }}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-6"
+        >
+          {category.services.map((service, i) => (
+            <motion.div
+              key={service.name}
+              variants={{
+                hidden: {
+                  opacity: 0,
+                  y: 50,
+                  scale: 0.96,
+                },
+                visible: {
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                  transition: {
+                    duration: 0.75,
+                    ease: "easeOut",
+                  },
+                },
+              }}
+              whileHover={{
+                y: -14,
+                scale: 1.05,
+                transition: {
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 18,
+                },
+              }}
+              className="group"
+            >
+              <Card className="relative h-full overflow-hidden border border-gray-300">
+                {/* subtle light sweep */}
+                <motion.div
+                  className="absolute inset-0 bg-white/5"
+                  initial={{ x: "-120%" }}
+                  animate={{ x: "120%" }}
+                  transition={{
+                    duration: 3.4,
+                    repeat: Infinity,
+                    delay: i * 0.18,
+                    ease: "linear",
+                  }}
+                />
+
+                {/* depth shadow on hover */}
+                <motion.div
+                  className="absolute inset-0"
+                  whileHover={{
+                    boxShadow: "0 28px 70px rgba(0,0,0,0.45)",
+                  }}
+                />
+
+                <CardContent className="p-3 sm:p-4 md:p-6 relative">
+                  {/* icon */}
+                  <motion.div
+                    whileHover={{ scale: 1.22, rotate: 10 }}
+                    transition={{ type: "spring", stiffness: 480 }}
+                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 flex items-center justify-center mb-3 sm:mb-4"
+                  >
+                    <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-300" />
+                  </motion.div>
+
+                  <h4 className="text-xs sm:text-sm md:text-base font-bold mb-1 sm:mb-2 text-white">
+                    {service.name}
+                  </h4>
+
+                  <motion.p
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="text-gray-400 text-xs"
+                  >
+                    {service.description}
+                  </motion.p>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.div>
+    ))}
+  </div>
+</section>
+
 
       {/* Portfolio Section */}
-      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t ">
+      <section id="portfolio" className="w-full py-12 sm:py-20 md:py-28  ">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -436,7 +638,7 @@ export default function Home() {
             viewport={{ once: true }}
             className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gradient">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
               Featured Projects
             </h2>
             <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
@@ -472,7 +674,7 @@ export default function Home() {
                     </div>
                   </motion.div>
                   <CardContent className="p-3 sm:p-4 md:p-6">
-                    <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-white group-hover:text-yellow-300 transition-colors">
+                    <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-gray-300">
                       {project.title}
                     </h3>
 
@@ -485,7 +687,7 @@ export default function Home() {
                         onClick={() =>
                           setExpandedProject(expandedProject === project.title ? null : project.title)
                         }
-                        className="text-xs sm:text-sm font-semibold text-gray-300 hover:text-yellow-300 transition-colors"
+                        className="text-xs sm:text-sm font-semibold text-gray-300 "
                       >
                         {expandedProject === project.title ? "Read Less" : "Read More"}
                       </button>
@@ -493,7 +695,7 @@ export default function Home() {
                       <Link
                         href={project.url}
                         target="_blank"
-                        className="inline-flex items-center text-xs sm:text-sm font-semibold text-yellow-400 hover:text-yellow-300 transition-colors"
+                        className="inline-flex items-center text-xs sm:text-sm font-semibold text-gray-300"
                       >
                         View Live Project
                         <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
@@ -543,7 +745,7 @@ export default function Home() {
                       className="flex mb-3 sm:mb-4"
                     >
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 fill-yellow-400 text-yellow-400" />
+                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 fill-gray-300 text-gray-300" />
                       ))}
                     </motion.div>
                     <p className="text-gray-300 mb-3 sm:mb-4 italic text-xs sm:text-sm md:text-base">
@@ -552,7 +754,7 @@ export default function Home() {
                     <div className="flex items-center space-x-2 sm:space-x-3">
                       <motion.div
                         whileHover={{ scale: 1.1, rotate: 10 }}
-                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 gradient-gold rounded-full flex items-center justify-center text-black font-bold text-xs flex-shrink-0"
+                        className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 rounded-full flex items-center justify-center text-black font-bold text-xs flex-shrink-0"
                       >
                         {testimonial.name
                           .split(" ")
@@ -575,7 +777,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section id="contact" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
+      <section id="contact" className="w-full py-12 sm:py-20 md:py-28 ">
         <div className="w-full max-w-4xl mx-auto px-4 text-center">
           <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
             <motion.div
@@ -583,7 +785,7 @@ export default function Home() {
               transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
               className="inline-block mb-4 sm:mb-6"
             >
-              <Award className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-gradient" />
+              <Award className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-gray-300" />
             </motion.div>
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-gray-300">
               Ready to Transform Your Business?
@@ -599,7 +801,11 @@ export default function Home() {
             >
               <Button
                 size="lg"
-                className="gradient-gold text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl hover:shadow-yellow-500/50 transition-all font-semibold w-full sm:w-auto"
+                className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700
+
+
+
+ text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl  font-semibold w-full sm:w-auto"
               >
                 Start Your Project Now
                 <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
