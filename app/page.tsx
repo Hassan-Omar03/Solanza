@@ -138,7 +138,7 @@ export default function Home() {
             >
               {stats.map((stat) => (
                 <motion.div key={stat.label} variants={itemVariants} className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient mb-1 sm:mb-2">
+                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-300 mb-1 sm:mb-2">
                     {stat.value}
                   </div>
                   <div className="text-gray-400 font-medium text-xs sm:text-sm">{stat.label}</div>
@@ -153,11 +153,11 @@ export default function Home() {
               transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"
             >
-              <div className="w-5 h-9 sm:w-6 sm:h-10 border-2 border-yellow-600/50 rounded-full flex items-start justify-center p-2">
+              <div className="w-5 h-9 sm:w-6 sm:h-10  flex items-start justify-center p-2">
                 <motion.div
                   animate={{ y: [0, 6, 0] }}
                   transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                  className="w-1 h-2 sm:w-1.5 sm:h-3 gradient-gold rounded-full"
+                  className="w-1 h-2 sm:w-1.5 sm:h-3  rounded-full"
                 ></motion.div>
               </div>
             </motion.div>
@@ -168,16 +168,16 @@ export default function Home() {
       {/* About Section */}
       <section
         id="about"
-        className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10 relative overflow-hidden"
+        className="w-full py-12 sm:py-20 md:py-28   relative overflow-hidden"
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <motion.div
-            className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 bg-yellow-600 rounded-full mix-blend-screen filter blur-3xl opacity-5"
+            className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 rounded-full mix-blend-screen filter blur-3xl opacity-5"
             animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
             transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY }}
           />
           <motion.div
-            className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96 bg-yellow-500 rounded-full mix-blend-screen filter blur-3xl opacity-5"
+            className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96  rounded-full mix-blend-screen filter blur-3xl opacity-5"
             animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.08, 0.05] }}
             transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, delay: 3 }}
           />
@@ -196,9 +196,9 @@ export default function Home() {
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, type: "spring" }}
-              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-yellow-500/40 bg-yellow-500/10 backdrop-blur-sm"
+              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm"
             >
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-400 flex-shrink-0" />
+              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
               <span className="text-xs sm:text-sm font-medium text-gray-300">About Our Company</span>
             </motion.div>
 
@@ -251,7 +251,7 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 }}
-              className="mt-10 sm:mt-16 pt-6 sm:pt-10 border-t border-yellow-500/20"
+              className="mt-10 sm:mt-16 pt-6 sm:pt-10 "
             >
               <p className="text-gray-300 font-semibold text-xs sm:text-3xl mb-6">Our Core Values</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
@@ -342,10 +342,10 @@ export default function Home() {
                         {service.name}
                       </h3>
                       <motion.div whileHover={{ scale: 1.2, rotate: 10 }}>
-                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 fill-yellow-400 flex-shrink-0" />
+                        <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300  flex-shrink-0" />
                       </motion.div>
                     </div>
-                    <div className="inline-block px-2 py-1 rounded-full bg-yellow-500/20 text-gray-300 text-xs font-semibold">
+                    <div className="inline-block px-2 py-1 rounded-full bg-black text-gray-300 text-xs font-semibold">
                       {service.demand}
                     </div>
                   </CardContent>
@@ -357,7 +357,7 @@ export default function Home() {
       </section>
 
       {/* Services Section - All Categories */}
-      <section id="services" className="w-full py-12 sm:py-20 md:py-28 bg-transparent border-t border-yellow-500/10">
+      <section id="services" className="w-full">
         <div className="w-full max-w-7xl mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -388,7 +388,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gradient flex items-center space-x-2 sm:space-x-3"
               >
-                <div className="h-1 w-4 sm:w-6 md:w-8 gradient-gold rounded-full flex-shrink-0" />
+                <div className="h-1 w-4 sm:w-6 md:w-8  rounded-full flex-shrink-0" />
                 <span>{category.category}</span>
               </motion.h3>
 
@@ -465,7 +465,7 @@ export default function Home() {
                       className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
 
-                    <div className="absolute inset-0 bg-black flex items-end p-3">
+                    <div className="absolute inset-0  flex items-end p-3">
                       <p className="text-gray-200 opacity-90 font-medium text-xs sm:text-sm md:text-base">
                         {project.category}
                       </p>
