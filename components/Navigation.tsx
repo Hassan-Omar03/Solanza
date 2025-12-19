@@ -15,16 +15,20 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState("hero")
 
+  // 🔥 WhatsApp
+  const whatsappNumber = "+971522740909"
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in your services.`
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20)
 
       const sections = ["hero", "about", "services", "portfolio", "contact"]
       for (const section of sections) {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          if (rect.top <= 100 && rect.bottom >= 100) {
+        const el = document.getElementById(section)
+        if (el) {
+          const rect = el.getBoundingClientRect()
+          if (rect.top <= 120 && rect.bottom >= 120) {
             setActiveSection(section)
             break
           }
@@ -56,11 +60,13 @@ const Navigation = () => {
     <motion.nav
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      className={`fixed w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-black/40 backdrop-blur-2xl border-b border-white/10 shadow-lg shadow-black/30"
-          : "bg-transparent"
-      }`}
+      className={`fixed w-full z-50 transition-all duration-300
+        ${
+          isScrolled
+            ? "bg-white/10 backdrop-blur-2xl border-b border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+            : "bg-white/5 backdrop-blur-xl"
+        }
+      `}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
@@ -68,16 +74,16 @@ const Navigation = () => {
           <motion.button
             whileHover={{ scale: 1.05 }}
             onClick={() => scrollToSection("hero")}
-            className="flex items-center space-x-2 group cursor-pointer"
+            className="flex items-center space-x-2 cursor-pointer"
           >
             <motion.div
               whileHover={{ rotate: 360 }}
               transition={{ duration: 0.6 }}
-              className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 p-2 rounded-lg shadow-lg shadow-black/40"
+              className="bg-white/30 backdrop-blur-xl p-2 rounded-xl border border-white/20 shadow-lg"
             >
-              <Sparkles className="h-6 w-6 text-black" />
+              <Sparkles className="h-6 w-6 text-white" />
             </motion.div>
-            <span className="text-2xl font-bold text-gray-300">Nuvera</span>
+            <span className="text-2xl font-bold text-white">Nuvera</span>
           </motion.button>
 
           {/* DESKTOP NAV */}
@@ -88,44 +94,45 @@ const Navigation = () => {
                 onClick={() => scrollToSection(link.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`px-4 py-2 rounded-lg font-medium transition-all relative group ${
-                  activeSection === link.id
-                    ? "text-white"
-                    : "text-gray-300 hover:text-white"
-                }`}
+                className={`px-4 py-2 rounded-lg font-medium transition-all relative
+                  ${
+                    activeSection === link.id
+                      ? "text-white"
+                      : "text-white/70 hover:text-white"
+                  }
+                `}
               >
                 {link.name}
                 <motion.div
-                  className="absolute bottom-0 left-0 w-full h-0.5 bg-white/70"
+                  className="absolute bottom-0 left-0 w-full h-0.5 bg-white"
                   initial={{ scaleX: activeSection === link.id ? 1 : 0 }}
-                  whileHover={{ scaleX: 1 }}
+                  animate={{ scaleX: activeSection === link.id ? 1 : 0 }}
                   transition={{ duration: 0.3 }}
                 />
               </motion.button>
             ))}
 
-            <motion.button
+            {/* DESKTOP WHATSAPP */}
+            <motion.a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => scrollToSection("contact")}
               className="ml-4"
             >
-              <Button className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-black font-semibold shadow-md ">
+              <Button className="bg-white/30 backdrop-blur-xl border border-white/30 text-white font-semibold hover:bg-white/40">
                 Get Started
               </Button>
-            </motion.button>
+            </motion.a>
           </div>
 
-          {/* MOBILE MENU BUTTON */}
+          {/* MOBILE TOGGLE */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-lg bg-white/20 backdrop-blur-xl border border-white/20"
           >
-            {isOpen ? (
-              <X className="h-6 w-6 text-white" />
-            ) : (
-              <Menu className="h-6 w-6 text-white" />
-            )}
+            {isOpen ? <X className="text-white" /> : <Menu className="text-white" />}
           </button>
         </div>
       </div>
@@ -137,7 +144,7 @@ const Navigation = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-black/50 backdrop-blur-2xl border-t border-white/10"
+            className="md:hidden bg-white/10 backdrop-blur-2xl border-t border-white/20"
           >
             <div className="px-4 py-4 space-y-2">
               {navLinks.map((link, index) => (
@@ -147,23 +154,26 @@ const Navigation = () => {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.1 }}
                   onClick={() => scrollToSection(link.id)}
-                  className="block w-full text-left px-4 py-3 rounded-lg hover:bg-white/10 font-medium text-gray-200 hover:text-white transition-all"
+                  className="block w-full text-left px-4 py-3 rounded-lg text-white/80 hover:text-white hover:bg-white/10"
                 >
                   {link.name}
                 </motion.button>
               ))}
 
-              <motion.button
+              <motion.a
+                href={whatsappLink}
+                target="_blank"
+                rel="noopener noreferrer"
                 initial={{ x: -20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                onClick={() => scrollToSection("contact")}
-                className="w-full"
+                className="block w-full"
+                onClick={() => setIsOpen(false)}
               >
-                <Button className="w-full gradient-gold text-black font-semibold">
+                <Button className="w-full bg-white/30 backdrop-blur-xl border border-white/30 text-white font-semibold hover:bg-white/40">
                   Get Started
                 </Button>
-              </motion.button>
+              </motion.a>
             </div>
           </motion.div>
         )}

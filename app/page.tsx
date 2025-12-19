@@ -1,10 +1,13 @@
 "use client"
-
 import { useState, useEffect } from "react"
-import { motion } from "framer-motion"
 import Image from "next/image"
+import { motion } from "framer-motion"
 import Link from "next/link"
-import { stats, features, topServices, serviceCategories, portfolio, testimonials, containerVariants, itemVariants } from "@/constant/data"
+import { Button } from "@/components/ui/button"
+
+
+import { Card, CardContent } from "@/components/ui/card"
+
 import {
   ArrowRight,
   Sparkles,
@@ -26,608 +29,612 @@ import {
   Megaphone,
   MessageCircle,
   Rocket,
+  Monitor,
+  Layout,
+  Briefcase,
+  Store,
+  Calendar,
+  Gauge,
+  Image as ImageIcon,   // ✅ FIXED
+  Camera,
+  BarChart3,
+  MapPin,
+  CheckCircle2,
+  Linkedin,
+  Youtube,
+  Package,
+  Users,
+  FileText,
+  Headphones,
+  Mic,
+  X,
+  Menu,
+  Play,
+  Lightbulb,
+  Target,
+  Wrench,
 } from "lucide-react"
 
-import Navigation from "@/components/Navigation"
-import Footer from "@/components/Footer"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-
 export default function Home() {
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [contentLoaded, setContentLoaded] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
 
-  useEffect(() => {
-    setIsLoaded(true)
-  }, [])
+  const [activeService, setActiveService] = useState<string | null>(null)
+
+  const whatsappNumber = "+971522740909" // Replace with your WhatsApp number
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in your services.`
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setContentLoaded(true)
-    }, 3000)
-    return () => clearTimeout(timer)
+    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  stats
+  const stats = [
+    { value: "500+", label: "Projects Completed" },
+    { value: "300+", label: "Happy Clients" },
+    { value: "10+", label: "Years Experience" },
+    { value: "98%", label: "Success Rate" },
+  ]
+
+  const features = [
+    { icon: Award, title: "Premium Quality", description: "Excellence in every project delivery" },
+    { icon: Zap, title: "Fast Delivery", description: "Quick turnaround times" },
+    { icon: Shield, title: "Secure & Reliable", description: "Your data is always safe" },
+    { icon: Users, title: "Expert Team", description: "Skilled professionals" },
+  ]
+
+  const topServices = [
+    { name: "Website Development", demand: "High Demand", icon: Globe },
+    { name: "Social Media Marketing", demand: "Most Popular", icon: Share2 },
+    { name: "SEO Services", demand: "Top Rated", icon: Search },
+    { name: "Video Editing", demand: "Trending", icon: Video },
+  ]
+  const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+}
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+}
+
+
+
+  const serviceCategories = [
+    {
+      category: "Website Development",
+      services: [
+        {
+          name: "Website Design (UI/UX)",
+          icon: Layout,
+          description: "Create stunning, user-friendly interfaces that captivate your audience. Our designs focus on intuitive navigation, modern aesthetics, and conversion optimization to ensure your website not only looks great but drives real business results.",
+        },
+        {
+          name: "Business Website",
+          icon: Briefcase,
+          description: "Professional corporate websites that establish your brand authority and credibility. We build responsive, SEO-optimized sites with compelling content that effectively communicate your value proposition.",
+        },
+        {
+          name: "E-commerce Website",
+          icon: ShoppingCart,
+          description: "Full-featured online stores with secure payment integration, inventory management, and seamless checkout experiences. We create scalable e-commerce solutions that drive sales and provide exceptional shopping experiences.",
+        },
+        {
+          name: "Booking Website",
+          icon: Calendar,
+          description: "Streamlined reservation systems with real-time availability, automated confirmations, and calendar integrations. Perfect for hotels, restaurants, services, and event venues looking to simplify their booking process.",
+        },
+        {
+          name: "Website Speed Optimization",
+          icon: Gauge,
+          description: "Boost your site's performance with advanced optimization techniques. We reduce load times, improve Core Web Vitals, and enhance user experience, leading to better SEO rankings and increased conversions.",
+        },
+      ],
+    },
+    {
+      category: "Graphics Design",
+      services: [
+        {
+          name: "Logo Design",
+          icon: PenTool,
+          description: "Memorable brand identities that capture your essence and stand out in the market. We create versatile, timeless logos with comprehensive brand guidelines to ensure consistent visual identity across all platforms.",
+        },
+        {
+          name: "Social Media Graphics",
+          icon: ImageIcon,
+          description: "Eye-catching visuals tailored for each platform's specifications. From Instagram posts to LinkedIn banners, we design scroll-stopping graphics that boost engagement and reinforce brand identity.",
+        },
+        {
+          name: "Photo Editing",
+          icon: Camera,
+          description: "Professional retouching, color correction, and creative enhancements that bring your images to life. We transform ordinary photos into stunning visuals perfect for marketing materials and social media.",
+        },
+      ],
+    },
+    {
+      category: "Digital Marketing",
+      services: [
+        {
+          name: "Social Media Marketing",
+          icon: Share2,
+          description: "Comprehensive social media strategies that build brand awareness and community engagement. We manage content creation, scheduling, and analytics across all major platforms to grow your online presence.",
+        },
+        {
+          name: "SEO",
+          icon: Search,
+          description: "Data-driven search engine optimization that improves your organic rankings. Our approach includes keyword research, on-page optimization, technical SEO, and link building for sustainable traffic growth.",
+        },
+        {
+          name: "Google Ads Setup",
+          icon: Megaphone,
+          description: "Strategic paid advertising campaigns that maximize ROI. We handle keyword research, ad creation, bid management, and conversion tracking to ensure your budget delivers optimal results and qualified leads.",
+        },
+        {
+          name: "Google Business Profile",
+          icon: Store,
+          description: "Optimize your local search presence with a fully configured Google Business Profile. We set up and optimize your listing with compelling descriptions and high-quality images to improve local visibility.",
+        },
+        {
+          name: "Google Map Location",
+          icon: MapPin,
+          description: "Accurate map listings that help customers find your physical locations effortlessly. We ensure your business appears correctly on Google Maps with precise coordinates and updated information.",
+        },
+        {
+          name: "Facebook Ads",
+          icon: Share2,
+          description: "Targeted Facebook advertising campaigns that reach your ideal customers. We create compelling ad creatives, optimize audience targeting, and manage budgets to maximize engagement and conversions.",
+        },
+        {
+          name: "Instagram Ads",
+          icon: Camera,
+          description: "Visually stunning Instagram campaigns that stop the scroll. From Stories to Reels, we craft platform-native ads with strategic targeting and compelling CTAs that resonate with Instagram's user base.",
+        },
+        {
+          name: "WhatsApp Business Setup",
+          icon: MessageCircle,
+          description: "Professional WhatsApp Business accounts that enhance customer communication. We configure automated greetings, quick replies, catalogs, and business information to streamline customer service.",
+        },
+        {
+          name: "TikTok Ads",
+          icon: Video,
+          description: "Viral-worthy TikTok campaigns that capture Gen Z audiences. We create authentic, entertaining ad content that aligns with TikTok's unique culture while driving brand awareness and conversions.",
+        },
+        {
+          name: "LinkedIn Ads",
+          icon: Linkedin,
+          description: "B2B-focused LinkedIn advertising that reaches decision-makers. We leverage LinkedIn's advanced targeting to create thought leadership content that generates quality leads and establishes industry authority.",
+        },
+        {
+          name: "Email & Content Marketing",
+          icon: Mail,
+          description: "Strategic email campaigns and valuable content that nurture leads. We create engaging newsletters and content strategies that build lasting relationships with your audience and deliver measurable ROI.",
+        },
+        {
+          name: "YouTube SEO",
+          icon: Youtube,
+          description: "Optimize your YouTube channel for maximum discoverability. We handle keyword research, metadata optimization, and thumbnail design to improve rankings, increase views, and grow your subscriber base.",
+        },
+        {
+          name: "Shopify Marketing",
+          icon: Package,
+          description: "Comprehensive marketing strategies for Shopify stores. From abandoned cart recovery to product promotions, we implement proven tactics that increase traffic and boost e-commerce revenue.",
+        },
+        {
+          name: "Shopify Store Setup",
+          icon: Store,
+          description: "Complete Shopify store creation from scratch. We handle theme customization, product setup, payment integration, and shipping configuration to launch your online store quickly and professionally.",
+        },
+        {
+          name: "Lead Generation",
+          icon: Target,
+          description: "Strategic lead generation campaigns that fill your sales pipeline. We use multi-channel approaches including landing pages, forms, and targeted ads to attract and capture high-quality leads.",
+        },
+      ],
+    },
+    {
+      category: "Video Editing & 3D Animation",
+      services: [
+        {
+          name: "Video Editing",
+          icon: Video,
+          description: "Professional video editing that tells your brand story compellingly. We handle color grading, sound design, transitions, and effects to create polished videos that engage viewers and drive action.",
+        },
+        {
+          name: "Short-form Content",
+          icon: Smartphone,
+          description: "Attention-grabbing Reels, Shorts, and TikToks optimized for social media algorithms. We create fast-paced, engaging content that maximizes views, shares, and platform virality.",
+        },
+        {
+          name: "3D Animation",
+          icon: Play,
+          description: "Stunning 3D animations that bring your concepts to life. From product showcases to explainer videos, we create immersive visual experiences that captivate audiences and communicate complex ideas simply.",
+        },
+      ],
+    },
+    {
+      category: "Business & Consulting",
+      services: [
+        {
+          name: "Digital Business Setup",
+          icon: Rocket,
+          description: "Complete digital infrastructure for new businesses. We help you establish your online presence, set up essential tools, implement systems, and create strategies to launch your venture successfully.",
+        },
+        {
+          name: "Online Strategy & Consultation",
+          icon: Lightbulb,
+          description: "Expert guidance on digital transformation and growth strategies. We analyze your business, identify opportunities, and provide actionable recommendations to improve your online performance and achieve your goals.",
+        },
+      ],
+    },
+    {
+      category: "Music & Audio",
+      services: [
+        {
+          name: "Audio Editing",
+          icon: Headphones,
+          description: "Professional audio post-production including noise reduction, equalization, and mastering. We enhance your recordings to broadcast quality, perfect for podcasts, videos, music, and professional presentations.",
+        },
+        {
+          name: "Voice-over & Background Audio",
+          icon: Mic,
+          description: "Professional voice-over recording and background music selection. We provide clear, engaging narration and perfectly matched audio tracks that enhance your content and maintain audience attention.",
+        },
+      ],
+    },
+  ]
+
+const portfolio = [
+  {
+    title: "AB SMD Construction Website",
+    category: "Construction & Corporate Website",
+    image: "/absmd.png",
+    shortDesc: "Professional construction company website with service-focused layout.",
+    fullDesc:
+      "A clean and professional construction company website designed to showcase services, completed projects, and company credibility. Built with a modern UI, responsive design, and optimized structure to attract corporate clients and project leads.",
+    url: "https://absmd.us",
+    tech: ["Next.js", "Tailwind CSS", "Responsive Design"],
+  },
+  {
+    title: "BIM Africa Quotation System",
+    category: "Business Web Application",
+    image: "/quotation.png",
+    shortDesc: "Online quotation system for BIM services and clients.",
+    fullDesc:
+      "A custom quotation web application that allows clients to request BIM service quotations efficiently. The system streamlines communication, automates quotation workflows, and improves lead handling for BIM Africa’s enterprise clients.",
+    url: "https://quotation.bim.africa",
+    tech: ["React", "Form Automation", "Business Logic"],
+  },
+  {
+    title: "BIM Africa Official Website",
+    category: "Corporate & Engineering Website",
+    image: "/bim.png",
+    shortDesc: "Corporate website for BIM engineering and consulting firm.",
+    fullDesc:
+      "A modern corporate website built for BIM Africa to establish a strong digital presence. The site highlights engineering expertise, BIM services, global reach, and professional credibility with a clean and authoritative design.",
+    url: "https://bim.africa",
+    tech: ["Next.js", "SEO Optimization", "Corporate Branding"],
+  },
+  {
+    title: "Hawar Homes Real Estate",
+    category: "Real Estate & Booking Website",
+    image: "/homes.png",
+    shortDesc: "Luxury vacation homes and short-term rental platform.",
+    fullDesc:
+      "A premium real estate website for Hawar Homes, focused on luxury vacation rentals. Features include property listings, detailed pages, inquiry system, and a user-friendly interface tailored for high-end real estate clients.",
+    url: "https://hawarhomes.com",
+    tech: ["Next.js", "Property Listings", "UI/UX Design"],
+  },
+  {
+    title: "Hoda Shine Services",
+    category: "Cleaning & Services Website",
+    image: "/cleaning.png",
+    shortDesc: "Service-based website for professional cleaning company.",
+    fullDesc:
+      "A clean and conversion-focused website for a professional cleaning services company. Designed to clearly present services, pricing structure, and contact options to generate leads and service inquiries.",
+    url: "https://hodashineservices.com",
+    tech: ["Business Website", "Lead Generation", "Responsive UI"],
+  },
+  {
+    title: "Asrar Salon & Spa",
+    category: "Beauty & Salon Website",
+    image: "/salon.png",
+    shortDesc: "Elegant salon website with brand-focused design.",
+    fullDesc:
+      "A stylish and modern salon website created for Asrar Salon & Spa. The design emphasizes brand aesthetics, services, and customer engagement with a smooth layout and mobile-friendly experience.",
+    url: "https://asrarsalon.com",
+    tech: ["Brand Design", "UI/UX", "Mobile Optimization"],
+  },
+  {
+    title: "Mauritius Travel & Tours",
+    category: "Travel & Tourism Website",
+    image: "/travel.png",
+    shortDesc: "Tourism website showcasing travel packages and destinations.",
+    fullDesc:
+      "A tourism-focused website designed to promote Mauritius travel packages, destinations, and experiences. Built with engaging visuals, clear package details, and inquiry-based conversion flow.",
+    url: "https://mauritiustraveltour.com",
+    tech: ["Tourism Website", "SEO", "Content Strategy"],
+  },
+  {
+    title: "Construction MU Project",
+    category: "Construction Portfolio Website",
+    image: "/construction.png",
+    shortDesc: "Modern construction portfolio website with clean UI.",
+    fullDesc:
+      "A modern and visually structured construction portfolio website showcasing projects, services, and company strengths. Built to demonstrate credibility and attract construction-related business opportunities.",
+    url: "https://construction-mu-sandy.vercel.app/",
+    tech: ["Next.js", "Tailwind CSS", "Portfolio Design"],
+  },
+]
+
+  const testimonials = [
+    {
+      name: "Ahmed Al-Mansouri",
+      role: "CEO, Dubai Properties",
+      content: "Nuvera transformed our digital presence completely. The website they built is stunning and our bookings have tripled. Their ongoing support is exceptional.",
+      rating: 5,
+    },
+    {
+      name: "Fatima Rahman",
+      role: "Founder, Bengal Fashion",
+      content: "The social media marketing campaign exceeded all expectations. We went from 2000 to 50000 followers and our sales increased by 500%. Highly recommended!",
+      rating: 5,
+    },
+    {
+      name: "Dr. Sarah Williams",
+      role: "Medical Director",
+      content: "The appointment booking system has revolutionized our practice. Patient satisfaction is up and no-shows are down significantly. Professional team and excellent execution.",
+      rating: 5,
+    },
+    {
+      name: "Omar Hassan",
+      role: "Restaurant Owner",
+      content: "Our online ordering system and social media presence have been game-changers. Revenue is up 300% and we're reaching customers we never could before. Worth every penny.",
+      rating: 5,
+    },
+    {
+      name: "Jennifer Chen",
+      role: "Startup Founder",
+      content: "The animated explainer video Nuvera created was instrumental in securing our Series A funding. Their creativity and technical skills are world-class.",
+      rating: 5,
+    },
+    {
+      name: "Marcus Thompson",
+      role: "Fitness Brand Owner",
+      content: "They grew our Instagram from 5K to 200K followers organically. The content strategy and execution were perfect. Our brand has never been stronger.",
+      rating: 5,
+    },
+  ]
+
+  
+
   return (
-    // Top-left -> bottom-right gradient that remains constant while scrolling
     <div className="w-full bg-gradient-to-br from-black via-[#0b1c3d] to-[#1e3a8a] text-white min-h-screen">
-      <Navigation />
+      {/* Floating WhatsApp Button */}
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-300 group"
+      >
+        <MessageCircle className="w-7 h-7 text-white" />
+        <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full animate-pulse"></span>
+      </a>
+
 
       {/* Hero Section */}
       <section
         id="hero"
-        className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-transparent"
+        className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden"
       >
-        <div className="absolute inset-0 overflow-hidden">
-          <motion.div
-            className="absolute -top-40 -right-40 w-80 h-80 sm:w-96 sm:h-96 rounded-full mix-blend-screen filter blur-3xl opacity-10"
-            animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.15, 0.1] }}
-            transition={{ duration: 8, repeat: Number.POSITIVE_INFINITY }}
-          />
-          <motion.div
-            className="absolute -bottom-40 -left-40 w-80 h-80 sm:w-96 sm:h-96 rounded-full mix-blend-screen filter blur-3xl opacity-5"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
-            transition={{ duration: 10, repeat: Number.POSITIVE_INFINITY, delay: 2 }}
-          />
-        </div>
-
         <div className="relative w-full max-w-7xl mx-auto px-4 py-20 text-center z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={isLoaded ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              animate={isLoaded ? { scale: 1 } : {}}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm"
+          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm">
+            <Sparkles className="h-5 w-5 text-gray-300" />
+            <span className="text-sm font-medium text-gray-300">Digital Services Excellence</span>
+          </div>
+
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent">
+            Transform Your Business Digitally
+          </h1>
+
+          <p className="text-base md:text-lg lg:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            Comprehensive digital solutions from web development to social media growth. Serving UAE, Bangladesh, and
+            worldwide clients with premium services.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+           <button
+  onClick={() =>
+    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
+  }
+  className="px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-lg font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center"
+>
+  Explore Services
+  <ArrowRight className="ml-2 h-5 w-5" />
+</button>
+
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-8 py-6 border border-gray-300 text-gray-300 rounded-lg font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center"
             >
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
-              <span className="text-xs sm:text-sm font-medium text-gray-300">Digital Services Excellence</span>
-            </motion.div>
+              Get Started Now
+            </a>
+          </div>
 
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 leading-tight text-balance bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent">
-  Transform Your Business Digitally
-</h1>
-
-
-            <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto leading-relaxed">
-              Comprehensive digital solutions from web development to social media growth. Serving UAE, Bangladesh, and
-              worldwide clients with premium services.
-            </p>
-
-            <div className="flex flex-col gap-3 sm:gap-4 mb-12 sm:mb-16">
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                className="w-full sm:w-auto mx-auto"
-              >
-                <Button
-                  size="lg"
-                  className=" text-gray-300 text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6  transition-all font-semibold w-full sm:w-auto"
-                >
-                  Explore Services
-                  <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                </Button>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
-                className="w-full sm:w-auto mx-auto"
-              >
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="text-sm sm:text-base md:text-lg px-6 sm:px-8 py-5 sm:py-6  text-gray-300  w-full sm:w-auto"
-                >
-                  Get Started Now
-                </Button>
-              </motion.button>
-            </div>
-
-            <motion.div
-              variants={containerVariants}
-              initial="hidden"
-              animate={isLoaded ? "visible" : "hidden"}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mt-12 sm:mt-20"
-            >
-              {stats.map((stat) => (
-                <motion.div key={stat.label} variants={itemVariants} className="text-center">
-                  <div className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-300 mb-1 sm:mb-2">
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-400 font-medium text-xs sm:text-sm">{stat.label}</div>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {!contentLoaded && (
-            <motion.div
-              animate={{ y: [0, 10, 0] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-              className="absolute bottom-6 sm:bottom-8 left-1/2 transform -translate-x-1/2"
-            >
-              <div className="w-5 h-9 sm:w-6 sm:h-10  flex items-start justify-center p-2">
-                <motion.div
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
-                  className="w-1 h-2 sm:w-1.5 sm:h-3  rounded-full"
-                ></motion.div>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-20">
+            {stats.map((stat) => (
+              <div key={stat.label} className="text-center">
+                <div className="text-3xl md:text-5xl font-bold text-gray-300 mb-2">{stat.value}</div>
+                <div className="text-gray-400 font-medium text-sm">{stat.label}</div>
               </div>
-            </motion.div>
-          )}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section
-        id="about"
-        className="w-full py-12 sm:py-20 md:py-28   relative overflow-hidden"
-      >
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            className="absolute top-0 right-0 w-64 h-64 sm:w-80 sm:h-80 rounded-full mix-blend-screen filter blur-3xl opacity-5"
-            animate={{ scale: [1, 1.2, 1], opacity: [0.05, 0.1, 0.05] }}
-            transition={{ duration: 12, repeat: Number.POSITIVE_INFINITY }}
-          />
-          <motion.div
-            className="absolute bottom-0 left-0 w-64 h-64 sm:w-96 sm:h-96  rounded-full mix-blend-screen filter blur-3xl opacity-5"
-            animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.08, 0.05] }}
-            transition={{ duration: 14, repeat: Number.POSITIVE_INFINITY, delay: 3 }}
-          />
-        </div>
-
+      <section id="about" className="w-full py-20 md:py-28 relative overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="text-center mb-10 sm:mb-16 md:mb-20"
-          >
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm"
-            >
-              <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
-              <span className="text-xs sm:text-sm font-medium text-gray-300">About Our Company</span>
-            </motion.div>
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm">
+              <Sparkles className="h-5 w-5 text-gray-300" />
+              <span className="text-sm font-medium text-gray-300">About Our Company</span>
+            </div>
 
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-gray-300 leading-tight">
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-gray-300">
               Welcome to Nuvera Digital Solutions
             </h2>
 
-            <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-200 leading-relaxed accent-black-premium
-"
-              >
+            <div className="max-w-4xl mx-auto space-y-6">
+              <p className="text-lg text-gray-200 leading-relaxed">
                 At Nuvera, we believe that digital transformation is not just about technology—it's about creating
                 meaningful connections between businesses and their audiences. With over a decade of collective
                 expertise, we've partnered with hundreds of companies across the globe to unlock their digital
                 potential.
-              </motion.p>
+              </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-              >
+              <p className="text-lg text-gray-300 leading-relaxed">
                 Our mission is simple yet powerful: to empower businesses with cutting-edge digital solutions that drive
                 growth, enhance brand visibility, and create lasting impact. We don't just deliver services; we build
                 long-term partnerships with our clients, understanding their unique challenges and crafting tailored
                 strategies that deliver measurable results.
-              </motion.p>
+              </p>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.5 }}
-                className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-300 leading-relaxed"
-              >
+              <p className="text-lg text-gray-300 leading-relaxed">
                 From startups to established enterprises, from UAE to Bangladesh and beyond, Nuvera has been the trusted
                 partner for businesses seeking premium digital services. Our team of skilled professionals combines
                 technical excellence with creative innovation to deliver solutions that exceed expectations.
-              </motion.p>
+              </p>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.6 }}
-              className="mt-10 sm:mt-16 pt-6 sm:pt-10 "
-            >
-              <p className="text-gray-300 font-semibold text-xs sm:text-3xl mb-6">Our Core Values</p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+            <div className="mt-16 pt-10 border-t border-gray-700">
+              <p className="text-gray-300 font-semibold text-2xl mb-6">Our Core Values</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {[
                   { title: "Excellence", desc: "Delivering premium quality in everything we do" },
                   { title: "Innovation", desc: "Staying ahead of digital trends and technologies" },
                   { title: "Integrity", desc: "Building trust through transparency and honesty" },
-                ].map((value, idx) => (
-                  <motion.div
-                    key={value.title}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.7 + idx * 0.1 }}
-                    className="p-3 sm:p-4"
-                  >
-                    <h4 className="text-gray-300 font-bold text-base sm:text-lg mb-2">{value.title}</h4>
-                    <p className="text-gray-400 text-xs sm:text-sm">{value.desc}</p>
-                  </motion.div>
+                ].map((value) => (
+                  <div key={value.title} className="p-4">
+                    <h4 className="text-gray-300 font-bold text-lg mb-2">{value.title}</h4>
+                    <p className="text-gray-400 text-sm">{value.desc}</p>
+                  </div>
                 ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-20"
-          >
-            {features.map((feature, idx) => (
-              <motion.div key={feature.title} variants={itemVariants} transition={{ delay: idx * 0.1 }}>
-                <Card className="h-full ">
-                  <CardContent className="p-3 sm:p-4 md:p-6">
-                    <motion.div
-                      whileHover={{ scale: 1.15, rotate: 10 }}
-                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 flex items-center justify-center mb-3 sm:mb-4 group-hover:animate-soft-pulse flex-shrink-0"
-                    >
-                      <feature.icon className="h-5 w-5 sm:h-6 sm:w-6 text-black font-bold" />
-                    </motion.div>
-                    <h3 className="text-base sm:text-lg font-semibold mb-2 text-gray-300">{feature.title}</h3>
-                    <p className="text-gray-400 text-xs sm:text-sm">{feature.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-20">
+            {features.map((feature) => (
+              <div key={feature.title} className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 transition-all">
+                <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
+                  <feature.icon className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-gray-300">{feature.title}</h3>
+                <p className="text-gray-400 text-sm">{feature.description}</p>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
-     {/* ================= TOP SERVICES — ADVANCED ================= */}
-{/* ================= TOP SERVICES — MORE ADVANCED MOTION (NO COLOR CHANGE) ================= */}
-<section className="w-full py-12 sm:py-20 md:py-28 relative overflow-hidden">
-  {/* floating parallax blobs (transparent only) */}
-  <motion.div
-    className="absolute -top-32 -right-32 w-80 h-80 rounded-full "
-    animate={{ y: [-30, 30, -30], x: [0, 20, 0] }}
-    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-  />
-  <motion.div
-    className="absolute -bottom-32 -left-32 w-80 h-80 rounded-full "
-    animate={{ y: [30, -30, 30], x: [0, -20, 0] }}
-    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-  />
+      {/* Top Services Section */}
+      <section className="w-full py-20 relative overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-300">Most-Selling Services</h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Our highest-demand services trusted by businesses worldwide
+            </p>
+          </div>
 
-  <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
-    {/* heading with micro text reveal */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-      className="text-center mb-10 sm:mb-16"
-    >
-      <motion.h2
-        initial={{ y: 40, letterSpacing: "0.2em" }}
-        whileInView={{ y: 0, letterSpacing: "0em" }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300"
-      >
-        Most-Selling Services
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto"
-      >
-        Our highest-demand services trusted by businesses worldwide
-      </motion.p>
-    </motion.div>
-
-    {/* cards grid with deep stagger */}
-    <motion.div
-      variants={{
-        hidden: {},
-        visible: {
-          transition: {
-            staggerChildren: 0.15,
-            delayChildren: 0.2,
-          },
-        },
-      }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true }}
-      className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-4"
-    >
-      {topServices.map((service, index) => (
-        <motion.div
-          key={service.name}
-          variants={{
-            hidden: {
-              opacity: 0,
-              y: 60,
-              scale: 0.95,
-            },
-            visible: {
-              opacity: 1,
-              y: 0,
-              scale: 1,
-              transition: {
-                duration: 0.8,
-                ease: "easeOut",
-              },
-            },
-          }}
-          whileHover={{
-            y: -14,
-            scale: 1.05,
-            transition: {
-              type: "spring",
-              stiffness: 300,
-              damping: 18,
-            },
-          }}
-          className="group"
-        >
-          <Card className="relative border border-gray-300 h-full overflow-hidden">
-            {/* premium light sweep */}
-            <motion.div
-              className="absolute inset-0 bg-white/5"
-              initial={{ x: "-120%" }}
-              animate={{ x: "120%" }}
-              transition={{
-                duration: 3.2,
-                repeat: Infinity,
-                delay: index * 0.18,
-                ease: "linear",
-              }}
-            />
-
-            {/* depth shadow on hover */}
-            <motion.div
-              className="absolute inset-0"
-              whileHover={{ boxShadow: "0 25px 60px rgba(0,0,0,0.45)" }}
-            />
-
-            <CardContent className="p-3 sm:p-4 md:p-6 relative">
-              <div className="flex items-start justify-between mb-2 sm:mb-3">
-                <h3 className="text-xs sm:text-sm md:text-base font-bold text-gray-300">
-                  {service.name}
-                </h3>
-
-                {/* star micro-interaction */}
-                <motion.div
-                  whileHover={{
-                    rotate: 18,
-                    scale: 1.35,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 16,
-                  }}
-                >
-                  <Star className="h-4 w-4 sm:h-5 sm:w-5 text-gray-300 flex-shrink-0" />
-                </motion.div>
-              </div>
-
-              {/* demand pill pop */}
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.25 }}
-                className="inline-block px-2 py-1 rounded-full bg-black text-gray-300 text-xs font-semibold"
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {topServices.map((service) => (
+              <div
+                key={service.name}
+                className="group bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 hover:scale-105 transition-all cursor-pointer"
               >
-                {service.demand}
-              </motion.div>
-            </CardContent>
-          </Card>
-        </motion.div>
-      ))}
-    </motion.div>
-  </div>
-</section>
+                <div className="flex items-start justify-between mb-3">
+                  <h3 className="text-base font-bold text-gray-300">{service.name}</h3>
+                  <Star className="h-5 w-5 text-yellow-400 fill-yellow-400" />
+                </div>
+                <span className="inline-block px-3 py-1 rounded-full bg-black text-gray-300 text-xs font-semibold">
+                  {service.demand}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
+      {/* Complete Services Section */}
+      <section id="services" className="w-full py-20 relative overflow-hidden">
+        <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-300">Our Complete Services</h2>
+            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+              Comprehensive digital solutions across all major categories
+            </p>
+          </div>
 
+          {serviceCategories.map((category, categoryIndex) => (
+            <div key={category.category} className="mb-16">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6 text-gray-300 flex items-center space-x-3">
+                <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
+                <span>{category.category}</span>
+              </h3>
 
-    {/* ================= SERVICES — ALL CATEGORIES (ADVANCED, SAME COLORS ONLY) ================= */}
-{/* ================= SERVICES — ADVANCED MOTION (SAME COLORS, NO NEW SHADES) ================= */}
-<section id="services" className="w-full relative overflow-hidden">
-  {/* soft floating depth (transparent only) */}
-  <motion.div
-    className="absolute -top-40 -right-40 w-96 h-96 rounded-full "
-    animate={{ y: [-30, 30, -30], x: [0, 25, 0] }}
-    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-  />
-  <motion.div
-    className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full "
-    animate={{ y: [30, -30, 30], x: [0, -25, 0] }}
-    transition={{ duration: 24, repeat: Infinity, ease: "linear" }}
-  />
-
-  <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
-    {/* section heading */}
-    <motion.div
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.7 }}
-      className="text-center mb-10 sm:mb-16"
-    >
-      <motion.h2
-        initial={{ y: 40, letterSpacing: "0.15em" }}
-        whileInView={{ y: 0, letterSpacing: "0em" }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300"
-      >
-        Our Complete Services
-      </motion.h2>
-
-      <motion.p
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.2 }}
-        className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto"
-      >
-        Comprehensive digital solutions across all major categories
-      </motion.p>
-    </motion.div>
-
-    {serviceCategories.map((category, categoryIndex) => (
-      <motion.div
-        key={category.category}
-        initial={{ opacity: 0, y: 60 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{
-          duration: 0.9,
-          delay: categoryIndex * 0.15,
-          ease: "easeOut",
-        }}
-        className="mb-10 sm:mb-16"
-      >
-        {/* category title */}
-        <motion.h3
-          initial={{ x: -40, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="text-base sm:text-lg md:text-2xl lg:text-3xl font-bold mb-4 sm:mb-6 text-gray-300 flex items-center space-x-3"
-        >
-          <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "2.5rem" }}
-            transition={{ duration: 0.7 }}
-            className="h-1 bg-gray-300 rounded-full flex-shrink-0"
-          />
-          <span>{category.category}</span>
-        </motion.h3>
-
-        {/* services grid */}
-        <motion.div
-          variants={{
-            hidden: {},
-            visible: {
-              transition: {
-                staggerChildren: 0.14,
-                delayChildren: 0.15,
-              },
-            },
-          }}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 md:gap-6"
-        >
-          {category.services.map((service, i) => (
-            <motion.div
-              key={service.name}
-              variants={{
-                hidden: {
-                  opacity: 0,
-                  y: 50,
-                  scale: 0.96,
-                },
-                visible: {
-                  opacity: 1,
-                  y: 0,
-                  scale: 1,
-                  transition: {
-                    duration: 0.75,
-                    ease: "easeOut",
-                  },
-                },
-              }}
-              whileHover={{
-                y: -14,
-                scale: 1.05,
-                transition: {
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 18,
-                },
-              }}
-              className="group"
-            >
-              <Card className="relative h-full overflow-hidden border border-gray-300">
-                {/* subtle light sweep */}
-                <motion.div
-                  className="absolute inset-0 bg-white/5"
-                  initial={{ x: "-120%" }}
-                  animate={{ x: "120%" }}
-                  transition={{
-                    duration: 3.4,
-                    repeat: Infinity,
-                    delay: i * 0.18,
-                    ease: "linear",
-                  }}
-                />
-
-                {/* depth shadow on hover */}
-                <motion.div
-                  className="absolute inset-0"
-                  whileHover={{
-                    boxShadow: "0 28px 70px rgba(0,0,0,0.45)",
-                  }}
-                />
-
-                <CardContent className="p-3 sm:p-4 md:p-6 relative">
-                  {/* icon */}
-                  <motion.div
-                    whileHover={{ scale: 1.22, rotate: 10 }}
-                    transition={{ type: "spring", stiffness: 480 }}
-                    className="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 flex items-center justify-center mb-3 sm:mb-4"
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.services.map((service) => (
+                  <div
+                    key={service.name}
+                    className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 hover:scale-105 transition-all group cursor-pointer"
+                    onClick={() => setActiveService(activeService === service.name ? null : service.name)}
                   >
-                    <service.icon className="h-5 w-5 sm:h-6 sm:w-6 text-gray-300" />
-                  </motion.div>
-
-                  <h4 className="text-xs sm:text-sm md:text-base font-bold mb-1 sm:mb-2 text-white">
-                    {service.name}
-                  </h4>
-
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="text-gray-400 text-xs"
-                  >
-                    {service.description}
-                  </motion.p>
-                </CardContent>
-              </Card>
-            </motion.div>
+                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                      <service.icon className="h-6 w-6 text-white" />
+                    </div>
+                    <h4 className="text-base font-bold mb-2 text-white">{service.name}</h4>
+                    <p className={`text-gray-400 text-sm ${activeService === service.name ? '' : 'line-clamp-2'}`}>
+                      {service.description}
+                    </p>
+                    <button className="mt-3 text-gray-300 text-sm font-semibold hover:text-white">
+                      {activeService === service.name ? 'Show Less' : 'Read More →'}
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
           ))}
-        </motion.div>
-      </motion.div>
-    ))}
-  </div>
-</section>
+
+          <div className="text-center mt-12">
+            <a
+              href={whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
+            >
+              <MessageCircle className="mr-2 h-5 w-5" />
+              Discuss Your Project on WhatsApp
+            </a>
+          </div>
+        </div>
+      </section>
 
 
       {/* Portfolio Section */}
@@ -800,17 +807,20 @@ export default function Home() {
               whileTap={{ scale: 0.95 }}
               className="inline-block w-full sm:w-auto"
             >
-              <Button
-                size="lg"
-                className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700
+             <a
+  href={whatsappLink}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <Button
+    size="lg"
+    className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl font-semibold w-full sm:w-auto"
+  >
+    Start Your Project Now
+    <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+  </Button>
+</a>
 
-
-
- text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl  font-semibold w-full sm:w-auto"
-              >
-                Start Your Project Now
-                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-              </Button>
             </motion.button>
           </motion.div>
         </div>
