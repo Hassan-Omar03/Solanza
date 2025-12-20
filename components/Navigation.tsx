@@ -63,8 +63,8 @@ const Navigation = () => {
       className={`fixed w-full z-50 transition-all duration-300
         ${
           isScrolled
-            ? "bg-white/10 backdrop-blur-2xl border-b border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
-            : "bg-white/5 backdrop-blur-xl"
+            ? "bg-white/10 backdrop-blur-xl border-b border-white/20 shadow-[0_8px_30px_rgba(0,0,0,0.35)]"
+            : "bg-white/5 backdrop-blur-lg"
         }
       `}
     >

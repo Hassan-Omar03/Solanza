@@ -56,7 +56,7 @@ const Card = React.forwardRef<HTMLDivElement, MotionDivProps>(
       {...props}
     >
       <motion.div
-        className="absolute inset-0 bg-white/5 pointer-events-none"
+        className=""
         initial={{ x: "-120%" }}
         animate={{ x: "120%" }}
         transition={{ duration: 3.2, repeat: Infinity, ease: "linear" }}

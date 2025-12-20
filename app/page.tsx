@@ -446,11 +446,11 @@ const portfolio = [
             <span className="text-sm font-medium text-gray-300">Digital Services Excellence</span>
           </div>
 
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-gray-300 via-gray-100 to-white bg-clip-text text-transparent">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white">
             Transform Your Business Digitally
           </h1>
 
-          <p className="text-base md:text-lg lg:text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-base md:text-lg lg:text-xl text-white mb-8 max-w-3xl mx-auto leading-relaxed">
             Comprehensive digital solutions from web development to social media growth. Serving UAE, Bangladesh, and
             worldwide clients with premium services.
           </p>
@@ -662,56 +662,62 @@ const portfolio = [
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-8"
           >
             {portfolio.map((project) => (
-              <motion.div key={project.title} variants={itemVariants} whileHover={{ y: -8 }} className="group">
-                <Card className="h-full overflow-hidden">
-                  <motion.div
-                    className="relative h-32 sm:h-40 md:h-48 overflow-hidden rounded-t-xl"
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <Image
-                      src={project.image}
-                      alt={project.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+             <motion.div
+  key={project.title}
+  variants={itemVariants}
+  whileHover={{ y: -6 }}
+  className="overflow-hidden"
+>
+  {/* IMAGE */}
+  <div className="relative w-full aspect-[16/9] overflow-hidden rounded-xl">
+    <Image
+      src={project.image}
+      alt={project.title}
+      fill
+      className="object-cover object-center"
+      sizes="(max-width: 768px) 100vw,
+             (max-width: 1024px) 50vw,
+             33vw"
+    />
+  </div>
 
-                    <div className="absolute inset-0  flex items-end p-3">
-                      <p className="text-gray-200 opacity-90 font-medium text-xs sm:text-sm md:text-base">
-                        {project.category}
-                      </p>
-                    </div>
-                  </motion.div>
-                  <CardContent className="p-3 sm:p-4 md:p-6">
-                    <h3 className="text-sm sm:text-base md:text-lg font-bold mb-2 text-gray-300">
-                      {project.title}
-                    </h3>
+  {/* TEXT BELOW IMAGE */}
+  <div className="p-4">
+    <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-1">
+      {project.title}
+    </h3>
 
-                    <motion.p layout className="text-gray-400 text-xs sm:text-sm">
-                      {expandedProject === project.title ? project.fullDesc : project.shortDesc}
-                    </motion.p>
+    <p className="text-sm text-gray-400 mb-3">
+      {expandedProject === project.title
+        ? project.fullDesc
+        : project.shortDesc}
+    </p>
 
-                    <div className="mt-3 flex items-center gap-3">
-                      <button
-                        onClick={() =>
-                          setExpandedProject(expandedProject === project.title ? null : project.title)
-                        }
-                        className="text-xs sm:text-sm font-semibold text-gray-300 "
-                      >
-                        {expandedProject === project.title ? "Read Less" : "Read More"}
-                      </button>
+    <div className="flex gap-4">
+      <button
+        onClick={() =>
+          setExpandedProject(
+            expandedProject === project.title ? null : project.title
+          )
+        }
+        className="text-sm font-semibold text-gray-300"
+      >
+        {expandedProject === project.title ? "Read Less" : "Read More"}
+      </button>
 
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        className="inline-flex items-center text-xs sm:text-sm font-semibold text-gray-300"
-                      >
-                        View Live Project
-                        <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
-                      </Link>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+      <Link
+        href={project.url}
+        target="_blank"
+        className="text-sm font-semibold text-gray-300 inline-flex items-center"
+      >
+        View Project
+        <ArrowRight className="ml-2 h-4 w-4" />
+      </Link>
+    </div>
+  </div>
+</motion.div>
+
+
             ))}
           </motion.div>
         </div>
