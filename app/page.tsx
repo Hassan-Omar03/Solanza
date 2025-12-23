@@ -60,7 +60,9 @@ export default function Home() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [expandedProject, setExpandedProject] = useState<string | null>(null)
 
-  const [activeService, setActiveService] = useState<string | null>(null)
+  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+const PREVIEW_COUNT = 3
+
 
   const whatsappNumber = "+971522740909" // Replace with your WhatsApp number
   const whatsappLink = `https://wa.me/${whatsappNumber}?text=Hi! I'm interested in your services.`
@@ -418,6 +420,29 @@ const portfolio = [
       rating: 5,
     },
   ]
+  const heroContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+}
+
+const heroItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+   transition: {
+      duration: 0.7,
+      ease: [0.16, 1, 0.3, 1] as const, // ✅ cubic-bezier (easeOut)
+    },
+  },
+}
+
 
   
 
@@ -435,57 +460,100 @@ const portfolio = [
       </a>
 
 
-      {/* Hero Section */}
-      <section
-        id="hero"
-        className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden"
-      >
-        <div className="relative w-full max-w-7xl mx-auto px-4 py-20 text-center z-10">
-          <div className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm">
-            <Sparkles className="h-5 w-5 text-gray-300" />
-            <span className="text-sm font-medium text-gray-300">Digital Services Excellence</span>
-          </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white">
-            Transform Your Business Digitally
-          </h1>
-
-          <p className="text-base md:text-lg lg:text-xl text-white mb-8 max-w-3xl mx-auto leading-relaxed">
-            Comprehensive digital solutions from web development to social media growth. Serving UAE, Bangladesh, and
-            worldwide clients with premium services.
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-           <button
-  onClick={() =>
-    document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })
-  }
-  className="px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-lg font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center"
+    {/* Hero Section */}
+<section
+  id="hero"
+  className="relative w-full min-h-screen flex items-center justify-center pt-20 overflow-hidden"
 >
-  Explore Services
-  <ArrowRight className="ml-2 h-5 w-5" />
-</button>
+  <motion.div
+    variants={heroContainer}
+    initial="hidden"
+    animate="visible"
+    className="relative w-full max-w-7xl mx-auto px-4 py-20 text-center z-10"
+  >
+    {/* Badge */}
+    <motion.div
+      variants={heroItem}
+      className="inline-flex items-center space-x-2 px-4 py-2 rounded-full mb-6 border border-gray-300 backdrop-blur-sm"
+    >
+      <Sparkles className="h-5 w-5 text-gray-300 animate-pulse" />
+      <span className="text-sm font-medium text-gray-300">
+        Digital Services Excellence
+      </span>
+    </motion.div>
 
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-6 border border-gray-300 text-gray-300 rounded-lg font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center"
-            >
-              Get Started Now
-            </a>
-          </div>
+    {/* Heading */}
+    <motion.h1
+      variants={heroItem}
+      className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white"
+    >
+      Transform Your Business Digitally
+    </motion.h1>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-20">
-            {stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <div className="text-3xl md:text-5xl font-bold text-gray-300 mb-2">{stat.value}</div>
-                <div className="text-gray-400 font-medium text-sm">{stat.label}</div>
-              </div>
-            ))}
+    {/* Description */}
+    <motion.p
+      variants={heroItem}
+      className="text-base md:text-lg lg:text-xl text-white mb-8 max-w-3xl mx-auto leading-relaxed"
+    >
+      Comprehensive digital solutions from web development to social media growth.
+      Serving UAE, Bangladesh, and worldwide clients with premium services.
+    </motion.p>
+
+    {/* Buttons */}
+    <motion.div
+      variants={heroItem}
+      className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+    >
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        onClick={() =>
+          document
+            .getElementById("services")
+            ?.scrollIntoView({ behavior: "smooth" })
+        }
+        className="px-8 py-6 bg-gradient-to-r from-gray-500 to-gray-700 text-white rounded-lg font-semibold hover:shadow-xl transition-all inline-flex items-center justify-center"
+      >
+        Explore Services
+        <ArrowRight className="ml-2 h-5 w-5" />
+      </motion.button>
+
+      <motion.a
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="px-8 py-6 border border-gray-300 text-gray-300 rounded-lg font-semibold hover:bg-white/10 transition-all inline-flex items-center justify-center"
+      >
+        Get Started Now
+      </motion.a>
+    </motion.div>
+
+    {/* Stats */}
+    <motion.div
+      variants={heroContainer}
+      className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-20"
+    >
+      {stats.map((stat) => (
+        <motion.div
+          key={stat.label}
+          variants={heroItem}
+          whileHover={{ y: -6 }}
+          className="text-center"
+        >
+          <div className="text-3xl md:text-5xl font-bold text-gray-300 mb-2">
+            {stat.value}
           </div>
-        </div>
-      </section>
+          <div className="text-gray-400 font-medium text-sm">
+            {stat.label}
+          </div>
+        </motion.div>
+      ))}
+    </motion.div>
+  </motion.div>
+</section>
+
 
       {/* About Section */}
       <section id="about" className="w-full py-20 md:py-28 relative overflow-hidden">
@@ -523,7 +591,7 @@ const portfolio = [
             </div>
 
             <div className="mt-16 pt-10 border-t border-gray-700">
-              <p className="text-gray-300 font-semibold text-2xl mb-6">Our Core Values</p>
+              <p className="text-white font-semibold text-2xl mb-6">Our Core Values</p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 {[
                   { title: "Excellence", desc: "Delivering premium quality in everything we do" },
@@ -531,8 +599,8 @@ const portfolio = [
                   { title: "Integrity", desc: "Building trust through transparency and honesty" },
                 ].map((value) => (
                   <div key={value.title} className="p-4">
-                    <h4 className="text-gray-300 font-bold text-lg mb-2">{value.title}</h4>
-                    <p className="text-gray-400 text-sm">{value.desc}</p>
+                    <h4 className="text-white font-bold text-lg mb-2">{value.title}</h4>
+                    <p className="text-white text-sm">{value.desc}</p>
                   </div>
                 ))}
               </div>
@@ -545,8 +613,8 @@ const portfolio = [
                 <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
                   <feature.icon className="h-6 w-6 text-white" />
                 </div>
-                <h3 className="text-lg font-semibold mb-2 text-gray-300">{feature.title}</h3>
-                <p className="text-gray-400 text-sm">{feature.description}</p>
+                <h3 className="text-lg font-semibold mb-2 text-white">{feature.title}</h3>
+                <p className="text-white text-sm">{feature.description}</p>
               </div>
             ))}
           </div>
@@ -586,41 +654,68 @@ const portfolio = [
       <section id="services" className="w-full py-20 relative overflow-hidden">
         <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-gray-300">Our Complete Services</h2>
-            <p className="text-lg text-gray-300 max-w-2xl mx-auto">
+            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">Our Complete Services</h2>
+            <p className="text-lg text-white max-w-2xl mx-auto">
               Comprehensive digital solutions across all major categories
             </p>
           </div>
 
-          {serviceCategories.map((category, categoryIndex) => (
-            <div key={category.category} className="mb-16">
-              <h3 className="text-2xl md:text-3xl font-bold mb-6 text-gray-300 flex items-center space-x-3">
-                <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
-                <span>{category.category}</span>
-              </h3>
+         {serviceCategories.map((category) => {
+  const isActive = activeCategory === category.category
+  const isHidden = activeCategory && !isActive
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {category.services.map((service) => (
-                  <div
-                    key={service.name}
-                    className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 hover:scale-105 transition-all group cursor-pointer"
-                    onClick={() => setActiveService(activeService === service.name ? null : service.name)}
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
-                      <service.icon className="h-6 w-6 text-white" />
-                    </div>
-                    <h4 className="text-base font-bold mb-2 text-white">{service.name}</h4>
-                    <p className={`text-gray-400 text-sm ${activeService === service.name ? '' : 'line-clamp-2'}`}>
-                      {service.description}
-                    </p>
-                    <button className="mt-3 text-gray-300 text-sm font-semibold hover:text-white">
-                      {activeService === service.name ? 'Show Less' : 'Read More →'}
-                    </button>
-                  </div>
-                ))}
-              </div>
+  if (isHidden) return null
+
+  return (
+    <div key={category.category} className="mb-16">
+      {/* Category Title */}
+      <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center space-x-3">
+        <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
+        <span>{category.category}</span>
+      </h3>
+
+      {/* Services */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {(isActive
+          ? category.services
+          : category.services.slice(0, PREVIEW_COUNT)
+        ).map((service) => (
+          <div
+            key={service.name}
+            className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 hover:scale-105 transition-all"
+          >
+            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
+              <service.icon className="h-6 w-6 text-white" />
             </div>
-          ))}
+
+            <h4 className="text-base font-bold mb-2 text-white">
+              {service.name}
+            </h4>
+
+            <p className="text-white text-sm">
+              {service.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      {/* View More / Back */}
+      {category.services.length > PREVIEW_COUNT && (
+        <div className="mt-6">
+          <button
+            onClick={() =>
+              setActiveCategory(isActive ? null : category.category)
+            }
+            className="text-white font-semibold hover:text-white transition"
+          >
+            {isActive ? "← Back to All Categories" : "View More →"}
+          </button>
+        </div>
+      )}
+    </div>
+  )
+})}
+
 
           <div className="text-center mt-12">
             <a
@@ -646,10 +741,10 @@ const portfolio = [
             viewport={{ once: true }}
             className="text-center mb-10 sm:mb-16"
           >
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-gray-300">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-white">
               Featured Projects
             </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white max-w-2xl mx-auto">
               Scroll to discover successful projects across diverse industries
             </p>
           </motion.div>
@@ -683,11 +778,11 @@ const portfolio = [
 
   {/* TEXT BELOW IMAGE */}
   <div className="p-4">
-    <h3 className="text-base sm:text-lg font-bold text-gray-300 mb-1">
+    <h3 className="text-base sm:text-lg font-bold text-white mb-1">
       {project.title}
     </h3>
 
-    <p className="text-sm text-gray-400 mb-3">
+    <p className="text-sm text-white mb-3">
       {expandedProject === project.title
         ? project.fullDesc
         : project.shortDesc}
@@ -700,7 +795,7 @@ const portfolio = [
             expandedProject === project.title ? null : project.title
           )
         }
-        className="text-sm font-semibold text-gray-300"
+        className="text-sm font-semibold text-white"
       >
         {expandedProject === project.title ? "Read Less" : "Read More"}
       </button>
@@ -708,7 +803,7 @@ const portfolio = [
       <Link
         href={project.url}
         target="_blank"
-        className="text-sm font-semibold text-gray-300 inline-flex items-center"
+        className="text-sm font-semibold text-white inline-flex items-center"
       >
         View Project
         <ArrowRight className="ml-2 h-4 w-4" />
@@ -735,7 +830,7 @@ const portfolio = [
             <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-white">
               Client Success Stories
             </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white max-w-2xl mx-auto">
               See how we've transformed businesses through digital excellence
             </p>
           </motion.div>
@@ -759,10 +854,10 @@ const portfolio = [
                       className="flex mb-3 sm:mb-4"
                     >
                       {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 fill-gray-300 text-gray-300" />
+                        <Star key={i} className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 fill-gray-300 text-white" />
                       ))}
                     </motion.div>
-                    <p className="text-gray-300 mb-3 sm:mb-4 italic text-xs sm:text-sm md:text-base">
+                    <p className="text-white mb-3 sm:mb-4 italic text-xs sm:text-sm md:text-base">
                       &quot;{testimonial.content}&quot;
                     </p>
                     <div className="flex items-center space-x-2 sm:space-x-3">
@@ -799,12 +894,12 @@ const portfolio = [
               transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY }}
               className="inline-block mb-4 sm:mb-6"
             >
-              <Award className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-gray-300" />
+              <Award className="h-12 w-12 sm:h-14 sm:w-14 md:h-16 md:w-16 text-white" />
             </motion.div>
-            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-gray-300">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 md:mb-6 text-white">
               Ready to Transform Your Business?
             </h2>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-gray-300 mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-white mb-6 sm:mb-8 max-w-2xl mx-auto leading-relaxed">
               Join hundreds of satisfied clients. Let us help you achieve digital excellence with our comprehensive
               suite of services.
             </p>
@@ -820,7 +915,7 @@ const portfolio = [
 >
   <Button
     size="lg"
-    className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-black text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl font-semibold w-full sm:w-auto"
+    className="bg-gradient-to-br from-gray-500 via-gray-600 to-gray-700 text-white text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 hover:shadow-2xl font-semibold w-full sm:w-auto"
   >
     Start Your Project Now
     <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />

@@ -44,7 +44,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="bg-gradient-to-br from-black via-[#0b1c3d] to-[#1e3a8a]  text-gray-300 relative overflow-hidden">
+    <footer className="bg-gradient-to-br from-black via-[#0b1c3d] to-[#1e3a8a]  text-white relative overflow-hidden">
       {/* subtle glass blobs (NO yellow) */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
@@ -80,7 +80,7 @@ const Footer = () => {
               <span className="text-2xl font-bold text-white">Nuvera</span>
             </div>
 
-            <p className="text-gray-300 mb-6 leading-relaxed max-w-xl">
+            <p className="text-white mb-6 leading-relaxed max-w-xl">
               Premium digital services transforming businesses globally. Expertise
               in web development, branding, marketing, and growth strategies.
             </p>
@@ -88,23 +88,23 @@ const Footer = () => {
             <div className="space-y-3">
               <motion.div whileHover={{ x: 6 }} className="flex items-center space-x-3">
                 <div className="bg-white/10 p-2 rounded-lg">
-                  <Mail className="h-4 w-4 text-gray-200" />
+                  <Mail className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm text-gray-200">hello@nuvera.com</span>
+                <span className="text-sm text-white">hello@nuvera.com</span>
               </motion.div>
 
               <motion.div whileHover={{ x: 6 }} className="flex items-center space-x-3">
                 <div className="bg-white/10 p-2 rounded-lg">
-                  <Phone className="h-4 w-4 text-gray-200" />
+                  <Phone className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm text-gray-200">+971 (50) 123-4567</span>
+                <span className="text-sm text-white">+971 (50) 123-4567</span>
               </motion.div>
 
               <motion.div whileHover={{ x: 6 }} className="flex items-center space-x-3">
                 <div className="bg-white/10 p-2 rounded-lg">
-                  <MapPin className="h-4 w-4 text-gray-200" />
+                  <MapPin className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm text-gray-200">Dubai, UAE</span>
+                <span className="text-sm text-white">Dubai, UAE</span>
               </motion.div>
             </div>
           </motion.div>
@@ -121,7 +121,7 @@ const Footer = () => {
                 <motion.li key={link.name} whileHover={{ x: 6 }} className="group">
                   <a
                     href={`#${link.id}`}
-                    className="text-gray-300 group-hover:text-white transition-colors flex items-center space-x-2"
+                    className="text-white group-hover:text-white transition-colors flex items-center space-x-2"
                   >
                     <ArrowRight className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                     <span>{link.name}</span>
@@ -148,7 +148,7 @@ const Footer = () => {
                   className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center hover:bg-white/20 transition-all"
                   aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5 text-gray-200" />
+                  <social.icon className="h-5 w-5 text-white" />
                 </motion.a>
               ))}
             </div>
@@ -170,18 +170,18 @@ const Footer = () => {
           viewport={{ once: true }}
           className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 text-center md:text-left"
         >
-          <p className="text-sm text-gray-300">
+          <p className="text-sm text-white">
             &copy; {currentYear} Nuvera Digital Services. All rights reserved.
           </p>
 
           <div className="flex flex-wrap justify-center md:justify-end gap-6 text-sm">
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a href="#" className="text-white hover:text-white transition-colors">
               Privacy Policy
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a href="#" className="text-white hover:text-white transition-colors">
               Terms of Service
             </a>
-            <a href="#" className="text-gray-300 hover:text-white transition-colors">
+            <a href="#" className="text-white hover:text-white transition-colors">
               Cookie Policy
             </a>
           </div>
