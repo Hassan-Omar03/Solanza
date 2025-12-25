@@ -4,7 +4,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-
+import Payment from "@/components/Payment"
 
 import { Card, CardContent } from "@/components/ui/card"
 
@@ -54,6 +54,7 @@ import {
   Target,
   Wrench,
 } from "lucide-react"
+
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false)
@@ -447,6 +448,7 @@ const heroItem = {
   
 
   return (
+    
     <div className="w-full bg-gradient-to-br from-black via-[#0b1c3d] to-[#1e3a8a] text-white min-h-screen">
       {/* Floating WhatsApp Button */}
       <a
@@ -482,13 +484,13 @@ const heroItem = {
       </span>
     </motion.div>
 
-    {/* Heading */}
-    <motion.h1
-      variants={heroItem}
-      className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white"
-    >
-      Transform Your Business Digitally
-    </motion.h1>
+   <motion.h1
+  variants={heroItem}
+  className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight shimmer-text"
+>
+  Transform Your Business Digitally
+</motion.h1>
+
 
     {/* Description */}
     <motion.p
@@ -715,6 +717,7 @@ const heroItem = {
     </div>
   )
 })}
+          <Payment />
 
 
           <div className="text-center mt-12">
