@@ -125,6 +125,7 @@ const itemVariants = {
           name: "Website Design (UI/UX)",
           icon: Layout,
           description: "Create stunning, user-friendly interfaces that captivate your audience. Our designs focus on intuitive navigation, modern aesthetics, and conversion optimization to ensure your website not only looks great but drives real business results.",
+          bgimage:"/ux.jpg"
         },
         {
           name: "Business Website",
@@ -653,86 +654,104 @@ const heroItem = {
       </section>
 
       {/* Complete Services Section */}
-      <section id="services" className="w-full py-20 relative overflow-hidden">
-        <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">Our Complete Services</h2>
-            <p className="text-lg text-white max-w-2xl mx-auto">
-              Comprehensive digital solutions across all major categories
-            </p>
-          </div>
-
-         {serviceCategories.map((category) => {
-  const isActive = activeCategory === category.category
-  const isHidden = activeCategory && !isActive
-
-  if (isHidden) return null
-
-  return (
-    <div key={category.category} className="mb-16">
-      {/* Category Title */}
-      <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center space-x-3">
-        <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
-        <span>{category.category}</span>
-      </h3>
-
-      {/* Services */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {(isActive
-          ? category.services
-          : category.services.slice(0, PREVIEW_COUNT)
-        ).map((service) => (
-          <div
-            key={service.name}
-            className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-gray-700 hover:bg-white/10 hover:scale-105 transition-all"
-          >
-            <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
-              <service.icon className="h-6 w-6 text-white" />
-            </div>
-
-            <h4 className="text-base font-bold mb-2 text-white">
-              {service.name}
-            </h4>
-
-            <p className="text-white text-sm">
-              {service.description}
-            </p>
-          </div>
-        ))}
-      </div>
-
-      {/* View More / Back */}
-      {category.services.length > PREVIEW_COUNT && (
-        <div className="mt-6">
-          <button
-            onClick={() =>
-              setActiveCategory(isActive ? null : category.category)
-            }
-            className="text-white font-semibold hover:text-white transition"
-          >
-            {isActive ? "← Back to All Categories" : "View More →"}
-          </button>
-        </div>
-      )}
+   <section id="services" className="w-full py-20 relative overflow-hidden">
+  <div className="w-full max-w-7xl mx-auto px-4 relative z-10">
+    {/* Heading */}
+    <div className="text-center mb-16">
+      <h2 className="text-3xl md:text-5xl font-bold mb-4 text-white">
+        Our Complete Services
+      </h2>
+      <p className="text-lg text-white max-w-2xl mx-auto">
+        Comprehensive digital solutions across all major categories
+      </p>
     </div>
-  )
-})}
-          <Payment />
 
+    {/* Categories */}
+    {serviceCategories.map((category) => {
+      const isActive = activeCategory === category.category
+      const isHidden = activeCategory && !isActive
 
-          <div className="text-center mt-12">
-            <a
-              href={whatsappLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
-            >
-              <MessageCircle className="mr-2 h-5 w-5" />
-              Discuss Your Project on WhatsApp
-            </a>
+      if (isHidden) return null
+
+      return (
+        <div key={category.category} className="mb-16">
+          {/* Category Title */}
+          <h3 className="text-2xl md:text-3xl font-bold mb-6 text-white flex items-center space-x-3">
+            <div className="w-10 h-1 bg-gray-300 rounded-full"></div>
+            <span>{category.category}</span>
+          </h3>
+
+          {/* Services Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {(isActive
+              ? category.services
+              : category.services.slice(0, PREVIEW_COUNT)
+            ).map((service) => (
+              <div
+                key={service.name}
+                className="relative rounded-xl overflow-hidden border border-gray-700 hover:scale-105 transition-all"
+                style={{
+                  backgroundImage: `url(${service.bgimage})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              >
+                {/* Dark Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30"></div>
+
+                {/* Card Content */}
+                <div className="relative z-10 p-6">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
+                    <service.icon className="h-6 w-6 text-white" />
+                  </div>
+
+                  <h4 className="text-base font-bold mb-2 text-white">
+                    {service.name}
+                  </h4>
+
+                  <p className="text-white/80 text-sm leading-relaxed">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
+
+          {/* View More / Back */}
+          {category.services.length > PREVIEW_COUNT && (
+            <div className="mt-6">
+              <button
+                onClick={() =>
+                  setActiveCategory(isActive ? null : category.category)
+                }
+                className="text-white font-semibold hover:text-white transition"
+              >
+                {isActive ? "← Back to All Categories" : "View More →"}
+              </button>
+            </div>
+          )}
         </div>
-      </section>
+      )
+    })}
+
+    {/* Payment */}
+    <Payment />
+
+    {/* WhatsApp CTA */}
+    <div className="text-center mt-12">
+      <a
+        href={whatsappLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="inline-flex items-center px-8 py-4 bg-green-500 text-white rounded-lg font-semibold hover:bg-green-600 transition-all"
+      >
+        <MessageCircle className="mr-2 h-5 w-5" />
+        Discuss Your Project on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
 
 
       {/* Portfolio Section */}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { loadStripe } from '@stripe/stripe-js';
+import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { countries } from "country-data";
 
 const Payment = () => {
     const [formData, setFormData] = useState({
@@ -9,42 +10,79 @@ const Payment = () => {
         amount: "",
     });
 
+    const [country, setCountry] = useState("");
+    const [currency, setCurrency] = useState("USD");
+
+    /* -------- Currency symbol helper (fallback safe) -------- */
+    const getCurrencySymbol = (currencyCode) => {
+        const symbols = {
+            USD: "$",
+            EUR: "€",
+            GBP: "£",
+            INR: "₹",
+            PKR: "₨",
+            JPY: "¥",
+            KRW: "₩",
+            AED: "د.إ",
+            SAR: "﷼",
+            CAD: "C$",
+            AUD: "A$",
+        };
+        return symbols[currencyCode] || currencyCode;
+    };
+
+    /* -------- Handle input change -------- */
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        // Phone → country + currency detect
+        if (name === "phone") {
+            const phoneNumber = parsePhoneNumberFromString(value);
+
+            if (phoneNumber && phoneNumber.isValid()) {
+                const countryCode = phoneNumber.country;
+                const countryData = countries[countryCode];
+
+                if (countryData?.currencies?.length) {
+                    setCurrency(countryData.currencies[0]);
+                }
+
+                setCountry(countryCode);
+            }
+        }
+
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    /* -------- Submit payment -------- */
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const paymentData = {
-            name: formData.name,
-            email: formData.email,
-            phone: formData.phone,
-            amount: formData.amount,
-            timestamp: new Date().toISOString()
+            ...formData,
+            country,
+            currency,
+            timestamp: new Date().toISOString(),
         };
 
-        sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+        sessionStorage.setItem("paymentData", JSON.stringify(paymentData));
 
         try {
-            // Create checkout session
-            const response = await fetch(`/api/checkout?price=${formData.amount}`, {
-                method: 'GET',
-            });
+            const response = await fetch(
+                `/api/checkout?amount=${formData.amount}&currency=${currency.toLowerCase()}`,
+                { method: "GET" }
+            );
 
             if (!response.ok) {
-                throw new Error('Failed to create checkout session');
+                throw new Error("Failed to create checkout session");
             }
 
             const session = await response.json();
-
-            // Redirect directly to Stripe Checkout using the session URL
             window.location.href = session.url;
 
         } catch (error) {
-            console.error('Payment error:', error);
-            alert('Payment failed: ' + error.message);
+            console.error("Payment error:", error);
+            alert("Payment failed: " + error.message);
         }
     };
 
@@ -67,7 +105,7 @@ const Payment = () => {
                             value={formData.name}
                             onChange={handleChange}
                             placeholder="John Doe"
-                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
@@ -82,7 +120,7 @@ const Payment = () => {
                             value={formData.email}
                             onChange={handleChange}
                             placeholder="john@example.com"
-                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all"
+                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
@@ -99,19 +137,19 @@ const Payment = () => {
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            placeholder="+1 (555) 000-0000"
-                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all"
+                            placeholder="+1 555 000 0000"
+                            className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
 
                     <div>
                         <label className="block text-sm font-medium text-white/80 mb-2">
-                            Amount
+                            Amount ({currency})
                         </label>
                         <div className="relative">
                             <span className="absolute left-4 top-1/2 -translate-y-1/2 text-white/60">
-                                $
+                                {getCurrencySymbol(currency)}
                             </span>
                             <input
                                 type="number"
@@ -121,7 +159,7 @@ const Payment = () => {
                                 placeholder="0.00"
                                 min="0"
                                 step="0.01"
-                                className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:border-transparent transition-all"
+                                className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                                 required
                             />
                         </div>
@@ -129,9 +167,12 @@ const Payment = () => {
                 </div>
             </div>
 
+            {/* Info */}
+          
+
             <button
                 type="submit"
-                className="w-full max-w-xs mt-8 py-4 px-6 bg-white text-slate-800 font-semibold rounded-lg hover:bg-white/90 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-200"
+                className="w-full max-w-xs mt-8 py-4 px-6 bg-white text-slate-800 font-semibold rounded-lg"
             >
                 Pay Now
             </button>
