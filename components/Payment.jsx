@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { parsePhoneNumberFromString } from "libphonenumber-js";
+import { parsePhoneNumberFromString, AsYouType } from "libphonenumber-js";
 import { countries } from "country-data";
+
+const DEFAULT_COUNTRY = "AE"; // UAE default
 
 const Payment = () => {
     const [formData, setFormData] = useState({
@@ -10,11 +12,11 @@ const Payment = () => {
         amount: "",
     });
 
-    const [country, setCountry] = useState("");
-    const [currency, setCurrency] = useState("USD");
+    const [country, setCountry] = useState(DEFAULT_COUNTRY);
+    const [currency, setCurrency] = useState("AED");
 
-    /* -------- Currency symbol helper (fallback safe) -------- */
-    const getCurrencySymbol = (currencyCode) => {
+    /* -------- Currency symbol helper -------- */
+    const getCurrencySymbol = (code) => {
         const symbols = {
             USD: "$",
             EUR: "€",
@@ -28,27 +30,30 @@ const Payment = () => {
             CAD: "C$",
             AUD: "A$",
         };
-        return symbols[currencyCode] || currencyCode;
+        return symbols[code] || code;
     };
 
     /* -------- Handle input change -------- */
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Phone → country + currency detect
         if (name === "phone") {
-            const phoneNumber = parsePhoneNumberFromString(value);
+            // Format number properly (UAE default)
+            const formatted = new AsYouType(DEFAULT_COUNTRY).input(value);
+            setFormData((prev) => ({ ...prev, phone: formatted }));
 
-            if (phoneNumber && phoneNumber.isValid()) {
+            const phoneNumber = parsePhoneNumberFromString(formatted, DEFAULT_COUNTRY);
+
+            if (phoneNumber?.isValid()) {
                 const countryCode = phoneNumber.country;
-                const countryData = countries[countryCode];
+                setCountry(countryCode);
 
+                const countryData = countries[countryCode];
                 if (countryData?.currencies?.length) {
                     setCurrency(countryData.currencies[0]);
                 }
-
-                setCountry(countryCode);
             }
+            return;
         }
 
         setFormData((prev) => ({ ...prev, [name]: value }));
@@ -87,16 +92,19 @@ const Payment = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-full flex flex-col justify-center p-8 rounded-2xl">
+        <form
+            onSubmit={handleSubmit}
+            className="w-full flex flex-col justify-center p-8 rounded-2xl"
+        >
             <h2 className="text-2xl font-semibold text-white mb-8 text-center">
                 Payment Details
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Left Column */}
+                {/* Left */}
                 <div className="space-y-5">
                     <div>
-                        <label className="block text-sm font-medium text-white/80 mb-2">
+                        <label className="block text-sm text-white/80 mb-2">
                             Full Name
                         </label>
                         <input
@@ -104,14 +112,13 @@ const Payment = () => {
                             name="name"
                             value={formData.name}
                             onChange={handleChange}
-                            placeholder="John Doe"
                             className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-white/80 mb-2">
+                        <label className="block text-sm text-white/80 mb-2">
                             Email Address
                         </label>
                         <input
@@ -119,32 +126,31 @@ const Payment = () => {
                             name="email"
                             value={formData.email}
                             onChange={handleChange}
-                            placeholder="john@example.com"
                             className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
                 </div>
 
-                {/* Right Column */}
+                {/* Right */}
                 <div className="space-y-5">
                     <div>
-                        <label className="block text-sm font-medium text-white/80 mb-2">
-                            Phone Number
+                        <label className="block text-sm text-white/80 mb-2">
+                            Phone Number ({country})
                         </label>
                         <input
                             type="tel"
                             name="phone"
                             value={formData.phone}
                             onChange={handleChange}
-                            placeholder="+1 555 000 0000"
+                            placeholder="+971 50 123 4567"
                             className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                             required
                         />
                     </div>
 
                     <div>
-                        <label className="block text-sm font-medium text-white/80 mb-2">
+                        <label className="block text-sm text-white/80 mb-2">
                             Amount ({currency})
                         </label>
                         <div className="relative">
@@ -156,10 +162,9 @@ const Payment = () => {
                                 name="amount"
                                 value={formData.amount}
                                 onChange={handleChange}
-                                placeholder="0.00"
                                 min="0"
                                 step="0.01"
-                                className="w-full pl-8 pr-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
+                                className="w-full pl-10 pr-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white"
                                 required
                             />
                         </div>
@@ -167,15 +172,15 @@ const Payment = () => {
                 </div>
             </div>
 
-            {/* Info */}
-          
-
-            <button
-                type="submit"
-                className="w-full max-w-xs mt-8 py-4 px-6 bg-white text-slate-800 font-semibold rounded-lg"
-            >
-                Pay Now
-            </button>
+            {/* Centered Button */}
+            <div className="flex justify-center">
+                <button
+                    type="submit"
+                    className="mt-8 py-4 px-10 bg-white text-slate-800 font-semibold rounded-lg"
+                >
+                    Pay Now
+                </button>
+            </div>
         </form>
     );
 };

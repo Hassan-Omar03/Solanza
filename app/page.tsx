@@ -697,11 +697,11 @@ const heroItem = {
                 }}
               >
                 {/* Dark Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30"></div>
+                <div className="absolute inset-0 "></div>
 
                 {/* Card Content */}
                 <div className="relative z-10 p-6">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-500 to-gray-700 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-lg  flex items-center justify-center mb-4">
                     <service.icon className="h-6 w-6 text-white" />
                   </div>
 
